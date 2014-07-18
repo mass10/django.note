@@ -17,10 +17,10 @@ def api(request):
 	#
 	# 単純な文字列を返却するアクションの例
 	#
-
+	current_user = request.session.get('user', '')
 	response = {
 		'response': 'hello',
-		'current_user': request.session.get('user', ''),
+		'current_user': current_user,
 	}
 	return django.http.HttpResponse(json.dumps(response))
 
@@ -48,6 +48,8 @@ def get_session_id(request):
 
 def try_login(request):
 
+	if request.method != 'POST':
+		return False
 	user_name = request.POST['login.user']
 	if len(user_name) == 0:
 		return False
@@ -59,9 +61,8 @@ def login(request):
 	#
 	# ログインページ的なもの
 	#
-	if request.method == 'POST':
-		if try_login(request):
-			return django.http.HttpResponseRedirect('/')
+	if try_login(request):
+		return django.http.HttpResponseRedirect('/')
 	fields = {}
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('login.html')

@@ -3,13 +3,21 @@
 	<head>
 		<meta charset="utf-8">
 		<title></title>
+		<style>
+		body.base {
+			font-size: 32px;
+		}
+		a {
+			font-size: 32px;
+		}
+		</style>
 	</head>
-	<body>
+	<body class="base">
 		<form method="post" action="/login">
-			<h1>Django Application Sample</h1>
-			<a href="/">HOME</a> | <a href="/login">LOGIN</a> | <a href="/hello">hello</a> | <a href="/api">API</a><br>
+			<div style="font-size: 64px">Django Application Sample</div>
+			<a href="/" class="base">HOME</a> | <a href="/login" class="base">LOGIN</a> | <a href="/hello" class="base">hello</a> | <a href="/api" class="base">API</a><br>
 			<hr>
-			<h2>LOGIN</h2>
+			<span style="font-size: 32px">LOGIN</span>
 			<table>
 				<tr>
 					<td>user</td>
