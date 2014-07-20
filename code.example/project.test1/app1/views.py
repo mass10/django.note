@@ -36,9 +36,6 @@ def api(request):
 def main(request):
 
 	logger.info('<app1.views.main> $$$ start $$$');
-
-	# _iptables_list(None)
-
 	user_name = request.session.get('user')
 	fields = {
 		'session': {
@@ -49,21 +46,6 @@ def main(request):
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('index.html')
 	return django.http.HttpResponse(template.render(context))
-
-def _iptables_list(request):
-
-	command_text = 'ls /tmp/'
-
-	stream = subprocess.Popen(
-		command_text,
-		shell=True,
-		stdout=subprocess.PIPE).stdout
-
-	for line in stream:
-		line = line.strip()
-		logger.debug(line)
-
-	stream.close()
 
 def try_login(request):
 
