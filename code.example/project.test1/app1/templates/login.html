@@ -2,33 +2,33 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
-		<style>
-		body.base {
-			font-size: 32px;
-		}
-		a {
-			font-size: 32px;
-		}
-		</style>
+		<title>ログイン</title>
+		<link rel="stylesheet" type="text/css" href="/static/system.css">
 	</head>
 	<body class="base">
 		<form method="post" action="/login">
 			<div style="font-size: 64px">Django Application Sample</div>
-			<a href="/" class="base">HOME</a> | <a href="/login" class="base">LOGIN</a> | <a href="/hello" class="base">hello</a> | <a href="/api" class="base">API</a><br>
+			<hr>
+			<a href="/" class="base">HOME</a> | <a href="/login" class="base">LOGIN</a> | <a href="/api" class="base">API</a> | <a href="/list/show" class="base">netfilter</a><br>
 			<hr>
 			<span style="font-size: 32px">LOGIN</span>
+			<center>
 			<table>
 				<tr>
-					<td>user</td>
+					<td>mail address</td>
+					<td><div style="width: 20px"></div></td>
 					<td><input type="text" name="login.user" value=""></td>
 				</tr>
 				<tr>
 					<td>password</td>
+					<td></td>
 					<td><input type="password" name="login.password" value=""></td>
 				</tr>
 			</table>
-			<input type="submit" name="login.submit_button" value="     submit     ">
+			<input type="submit" name="login.submit_button" value="     submit     "><br><br>
+			<a href="javascript: void(0)">or click here to sign-up.</a>
+			</center>
+			<hr>
 			{% csrf_token %}
 		</form>
 	</body>

@@ -1,3 +1,5 @@
+# coding: utf-8
+
 """
 Django settings for project1 project.
 
@@ -12,7 +14,6 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
@@ -26,9 +27,7 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
-
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -37,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app1',
+    # 'app1.list',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -52,6 +52,40 @@ ROOT_URLCONF = 'project1.urls'
 
 WSGI_APPLICATION = 'project1.wsgi.application'
 
+#
+# ロギングを利用するために追記した
+#
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '%(asctime)s [%(levelname)s] (pid:%(process)d) (thread:%(thread)d) <%(module)s> %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'filters': {
+    },
+    'handlers': {
+        'null': {
+            'level':'DEBUG',
+            'class':'django.utils.log.NullHandler',
+        },
+        'console':{
+            'level':'DEBUG',
+            'class':'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'app1': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
@@ -65,12 +99,21 @@ DATABASES = {
 
 APPEND_SLASH = False
 
-# cookie
+
+
+
+#
+# cookie に関するパラメータを追記した
+#
 SESSION_COOKIE_AGE = 60 * 1 #sec
 SESSION_COOKIE_NAME = 'sessionid'
-# using in-memory session
+
+
+
+#
+# in-memory session を利用するために追記した
+#
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
-# using in-memory session
 CACHES = {
 	'default' : {
 		'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
@@ -81,8 +124,14 @@ CACHES = {
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
+#
+# 変更した
+#
 LANGUAGE_CODE = 'ja-JP'
 
+#
+# 変更した
+#
 TIME_ZONE = 'Japan'
 
 USE_I18N = True

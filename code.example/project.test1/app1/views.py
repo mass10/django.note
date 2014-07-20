@@ -3,13 +3,15 @@
 import django
 import uuid
 import json
+import logging
+import subprocess
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.sessions.backends.cache import SessionStore
 
 # Create your views here.
 
-
+logger = logging.getLogger(__name__)
 
 
 def api(request):
@@ -17,16 +19,26 @@ def api(request):
 	#
 	# 単純な文字列を返却するアクションの例
 	#
+
+	logger.info('<app1.views.api> $$$ start $$$');
+
 	current_user = request.session.get('user', '')
+
 	response = {
 		'response': 'hello',
 		'current_user': current_user,
 	}
+
+	logger.info('<app1.views.api> --- end ---');
+
 	return django.http.HttpResponse(json.dumps(response))
 
 def main(request):
 
-	# session_id = get_session_id(request)
+	logger.info('<app1.views.main> $$$ start $$$');
+
+	# _iptables_list(None)
+
 	user_name = request.session.get('user')
 	fields = {
 		'session': {
@@ -38,13 +50,20 @@ def main(request):
 	template = django.template.loader.get_template('index.html')
 	return django.http.HttpResponse(template.render(context))
 
-def get_session_id(request):
-	
-	session_id = request.session.session_key
-	if session_id == None:
-		request.session.save()
-		session_id = request.session.session_key
-	return session_id
+def _iptables_list(request):
+
+	command_text = 'ls /tmp/'
+
+	stream = subprocess.Popen(
+		command_text,
+		shell=True,
+		stdout=subprocess.PIPE).stdout
+
+	for line in stream:
+		line = line.strip()
+		logger.debug(line)
+
+	stream.close()
 
 def try_login(request):
 
@@ -67,37 +86,4 @@ def login(request):
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('login.html')
 	return django.http.HttpResponse(template.render(context))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def hello(request):
-
-	#
-	# テンプレートを利用したアクションの例
-	#
-
-	fields = {}
-	context = django.template.RequestContext(request, fields)
-	template = django.template.loader.get_template('hello.html')
-	return django.http.HttpResponse(template.render(context))
-
-
-
-
-
-
-
-
-
 
