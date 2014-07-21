@@ -43,12 +43,11 @@ def show(request):
 	# =========================================================================
 	# process
 	# =========================================================================
-	user_name = request.session.get('user')
 
-	#
+	# current user
+	user_name = request.session.get('user')
 	# netfilter の設定をロード
-	#
-	filters = util.iptables_list(request)
+	filters = util.iptables_list()
 
 	# =========================================================================
 	# contents

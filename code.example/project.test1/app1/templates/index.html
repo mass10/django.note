@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>Django Application Sample - [Home]</title>
 		<link rel="stylesheet" type="text/css" href="/static/system.css">
 	</head>
 	<body class="base">
@@ -10,7 +10,7 @@
 			<table width="100%">
 				<tr>
 					<td><a href="/"><span class="banner">Django Application Sample</span></a></td>
-					<td style="vertical-align: bottom"><div style="text-align: right; color: #999999; ">[{{ session.user }}]</div></td>
+					<td style="vertical-align: bottom"><div style="text-align: right; color: #999999; ">[{{ session.user }}] ({{ session.logged_in_time }} sec.)</div></td>
 					<td style="vertical-align: bottom"><a href="/logout" style="color: #999999">logout</a></td>
 				</tr>
 			</table>

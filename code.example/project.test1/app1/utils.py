@@ -20,12 +20,15 @@ class util:
 
 		user_name = request.session.get('user')
 		if user_name == None:
-			logger.debug('セッションが切れている')
+			logger.debug('session timed out. session_key=[' + util.to_string(request.session.session_key) + ']')
 			return False
+
+		# request.session.save()
+		logger.debug('セッションは有効です。更に有効期間が延長されました(?)。session_key=[' + util.to_string(request.session.session_key) + ']')
 		return True
 
 	@staticmethod
-	def iptables_list(request):
+	def iptables_list():
 
 		command_text = [
 			'sudo',
@@ -82,4 +85,3 @@ class util:
 			return
 
 		tree[name] = []
-

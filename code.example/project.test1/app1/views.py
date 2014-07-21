@@ -5,6 +5,8 @@ import uuid
 import json
 import logging
 import subprocess
+import datetime
+import time
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.sessions.backends.cache import SessionStore
@@ -78,7 +80,7 @@ def main(request):
 	# =========================================================================
 	# validation	
 	# =========================================================================	
-	if not util.validate_session(request):
+	if False == util.validate_session(request):
 		return django.http.HttpResponseRedirect('/login')
 
 	# =========================================================================
@@ -88,10 +90,12 @@ def main(request):
 	# =========================================================================
 	# contents
 	# =========================================================================
+	elapsed = (time.time() - request.session['logged_in_time'])
 	fields = {
 		'session': {
 			'session_key' : request.session.session_key,
 			'user' : user_name,
+			'logged_in_time' : elapsed
 		}
 	}
 	context = django.template.RequestContext(request, fields)
@@ -105,7 +109,15 @@ def _try_login(request):
 	user_name = request.POST.get('login.user')
 	if len(user_name) == 0:
 		return False
+
+	# ログインユーザー
 	request.session['user'] = user_name
+	# ログイン日時
+	request.session['logged_in_time'] = time.time()
+	# セッション有効期間
+	#   - 0:ウェブブラウザを閉じるまで
+	request.session.set_expiry(0)
+	# request.session.save()
 	return True
 
 def login(request):
@@ -143,3 +155,39 @@ def login(request):
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('login.html')
 	return django.http.HttpResponse(template.render(context))
+
+def _logout(request):
+
+	request.session.clear()
+
+def logout(request):
+
+	# *************************************************************************
+	# *************************************************************************
+	# *************************************************************************
+	#
+	#
+	# ログアウトのアクション
+	#
+	#
+	# *************************************************************************
+	# *************************************************************************
+	# *************************************************************************
+	
+	# =========================================================================
+	# setup	
+	# =========================================================================	
+
+	# =========================================================================
+	# validation	
+	# =========================================================================	
+
+	# =========================================================================
+	# process
+	# =========================================================================
+	_logout(request)
+
+	# =========================================================================
+	# contents
+	# =========================================================================
+	return django.http.HttpResponseRedirect('/')
