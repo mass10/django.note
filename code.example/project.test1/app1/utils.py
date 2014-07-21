@@ -23,11 +23,15 @@ class util:
 		if user_name == None:
 			logger.debug('session timed out. session_key=[' + util.to_string(request.session.session_key) + ']')
 			return False
-		logger.debug('セッションは有効です。更に有効期間が延長されました(?)。session_key=[' + util.to_string(request.session.session_key) + ']')
+		logger.debug('セッションは有効です。session_key=[' + util.to_string(request.session.session_key) + ']')
 		return True
 
 	@staticmethod
 	def iptables_list():
+
+		#
+		# この部分は外部コマンドに委譲すべき
+		#
 
 		command_text = [
 			'sudo',
@@ -100,4 +104,4 @@ class util:
 			'user' : user_name,
 			'logged_in_time' : int(elapsed)
 		}
-		fields['session'] = fields_in_menu
+		fields['menuitems'] = fields_in_menu

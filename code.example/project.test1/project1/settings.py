@@ -86,7 +86,7 @@ LOGGING = {
 	},
 	'loggers': {
 		'app1': {
-			'handlers': ['logfile'],
+			'handlers': ['console', 'logfile'],
 			'level': 'DEBUG',
 		},
 	}
