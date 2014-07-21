@@ -1,6 +1,23 @@
 body.base {
-	# font-size: 32px;
 }
+
 a {
-	font-size: 32px;
+}
+
+span.banner {
+	font-size: 40px;
+}
+
+span.login_form_label {
+	font-size: 26px;
+}
+
+input.login_form {
+	font-size: 26px;
+	width: 320px;
+}
+
+#login_button_control {
+	font-size: 26px;
+	width: 320px;
 }

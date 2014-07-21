@@ -7,26 +7,30 @@
 	</head>
 	<body class="base">
 		<form method="post" action="/login">
-			<div style="font-size: 64px">Django Application Sample</div>
-			<hr>
-			<a href="/" class="base">HOME</a> | <a href="/login" class="base">LOGIN</a> | <a href="/api" class="base">API</a> | <a href="/list/show" class="base">netfilter</a><br>
-			<hr>
-			<span style="font-size: 32px">LOGIN</span>
+			<a href="/"><span class="banner">Django Application Sample</span></a>
 			<center>
-			<table>
-				<tr>
-					<td>mail address</td>
-					<td><div style="width: 20px"></div></td>
-					<td><input type="text" name="login.user" value=""></td>
-				</tr>
-				<tr>
-					<td>password</td>
-					<td></td>
-					<td><input type="password" name="login.password" value=""></td>
-				</tr>
-			</table>
-			<input type="submit" name="login.submit_button" value="     submit     "><br><br>
-			<a href="javascript: void(0)">or click here to sign-up.</a>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<table>
+					<tr>
+						<td><span class="login_form_label">mail address</span></td>
+						<td><div style="width: 20px"></div></td>
+						<td><input class="login_form" type="text" name="login.user" value="" style="{{ form_data.user_name }}" placeholder="Email Address"></td>
+					</tr>
+					<tr>
+						<td><span class="login_form_label">password</span></td>
+						<td></td>
+						<td><input class="login_form" type="password" name="login.password" value="" placeholder="Password"></td>
+					</tr>
+				</table>
+				<br>
+				<input type="submit" name="login.submit_button" value="     submit     " id="login_button_control"><br><br>
+				<a href="javascript: void(0)">or click here to sign-up.</a>
 			</center>
 			<hr>
 			{% csrf_token %}

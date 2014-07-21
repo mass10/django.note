@@ -14,14 +14,48 @@ from django.contrib.sessions.backends.cache import SessionStore
 logger = logging.getLogger(__name__)
 
 
+from app1.utils import *
+
+
 def show(request):
+
+	# *************************************************************************
+	# *************************************************************************
+	# *************************************************************************
+	#
+	#
+	# netfilter の状態を表示するアクション
+	#
+	#
+	# *************************************************************************
+	# *************************************************************************
+	# *************************************************************************
 
 	logger.info('<' + __name__ + '> $$$ start $$$');
 
-	filters = _iptables_list(request)
+	# =========================================================================
+	# setup	
+	# =========================================================================	
 
+	# =========================================================================
+	# validation	
+	# =========================================================================	
+	if False == util.validate_session(request):
+		return django.http.HttpResponseRedirect('/')
+
+	# =========================================================================
+	# process
+	# =========================================================================
 	user_name = request.session.get('user')
 
+	#
+	# netfilter の設定をロード
+	#
+	filters = _iptables_list(request)
+
+	# =========================================================================
+	# contents
+	# =========================================================================
 	fields = {
 		'session': {
 			'session_key' : request.session.session_key,
@@ -31,31 +65,26 @@ def show(request):
 			'filters': filters,
 		},
 	}
-	context = django.template.RequestContext(
-		request, fields)
-	template = django.template.loader.get_template(
-		'list/show.html')
-	return django.http.HttpResponse(
-		template.render(context))
-
-def _analyze_filter_line(line):
-	if line == '':
-		return None
-	fields = line.split()
-	if fields[0] == 'num':
-		return None
-	if fields[0] == 'Chain':
-		return None
-	return fields
+	context = django.template.RequestContext(request, fields)
+	template = django.template.loader.get_template('list/show.html')
+	return django.http.HttpResponse(template.render(context))
 
 def _create_node(tree, name):
+
 	if tree.has_key(name):
 		return
 	tree[name] = []
 
 def _iptables_list(request):
 
-	command_text = ['sudo', '-u', 'root', '/sbin/iptables', '--list', '-nvx', '--line-numbers']
+	command_text = [
+		'sudo',
+		'-u',
+		'root',
+		'/sbin/iptables',
+		'--list',
+		'-nvx',
+		'--line-numbers']
 
 	stream = subprocess.Popen(
 		command_text,
@@ -71,6 +100,7 @@ def _iptables_list(request):
 		line = line.strip()
 		if line == '':
 			continue
+
 		fields = line.split()
 		if fields[0] == 'num':
 			continue

@@ -2,43 +2,61 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title></title>
+		<title>ファイアウォールの状態</title>
 		<link rel="stylesheet" type="text/css" href="/static/system.css">
 	</head>
 	<body class="base">
 		<form method="post" action="/">
-			<div style="font-size: 64px">Django Application Sample</div>
+			<table width="100%">
+				<tr>
+					<td><a href="/"><span class="banner">Django Application Sample</span></a></td>
+					<td style="vertical-align: bottom"><div style="text-align: right; color: #999999; ">[{{ session.user }}]</div></td>
+					<td style="vertical-align: bottom"><a href="/logout" style="color: #999999">logout</a></td>
+				</tr>
+			</table>
 			<hr>
-			<a href="/" class="base">HOME</a> | <a href="/login" class="base">LOGIN</a> | <a href="/api" class="base">API</a> | <a href="/list/show" class="base">netfilter</a><br>
-			<hr>
-			<div style="text-align: right"><span style="font-size: 32px">こんにちは [{{ session.user }}]. </span></div><br>
-
-			<br>
-			<table border="1">
+			<table>
 				<tr>
-					<td>INPUT</td>
+					<td style="vertical-align: top">
+						<table>
+							<tr>
+								<td><a href="/api" class="base" target="_blank">API</a></td>
+							</tr>
+							<tr>
+								<td><a href="/list/show" class="base">netfilter</a></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<h2>ファイアウォールの状態</h2>
+						<table border="1">
+							<tr>
+								<td>INPUT</td>
+							</tr>
+						{% for line in form.filters.INPUT %}
+							<tr>
+								<td><pre style="font-family: ＭＳ ゴシック; ">{{ line }}</pre></td>
+							</tr>
+						{% endfor %}
+							<tr>
+								<td>FORWARD</td>
+							</tr>
+						{% for line in form.filters.FORWARD %}
+							<tr>
+								<td><pre style="font-family: ＭＳ ゴシック; ">{{ line }}</pre></td>
+							</tr>
+						{% endfor %}
+							<tr>
+								<td>OUTPUT</td>
+							</tr>
+						{% for line in form.filters.OUTPUT %}
+							<tr>
+								<td><pre style="font-family: ＭＳ ゴシック; ">{{ line }}</pre></td>
+							</tr>
+						{% endfor %}
+						</table>
+					</td>
 				</tr>
-			{% for line in form.filters.INPUT %}
-				<tr>
-					<td><pre style="font-family: ＭＳ ゴシック; ">{{ line }}</pre></td>
-				</tr>
-			{% endfor %}
-				<tr>
-					<td>FORWARD</td>
-				</tr>
-			{% for line in form.filters.FORWARD %}
-				<tr>
-					<td><pre style="font-family: ＭＳ ゴシック; ">{{ line }}</pre></td>
-				</tr>
-			{% endfor %}
-				<tr>
-					<td>OUTPUT</td>
-				</tr>
-			{% for line in form.filters.OUTPUT %}
-				<tr>
-					<td><pre style="font-family: ＭＳ ゴシック; ">{{ line }}</pre></td>
-				</tr>
-			{% endfor %}
 			</table>
 
 			{% csrf_token %}
