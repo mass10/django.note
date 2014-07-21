@@ -3,6 +3,7 @@
 import django
 import logging
 import subprocess
+import time
 
 logger = logging.getLogger(__name__)
 
@@ -83,3 +84,20 @@ class util:
 			return
 
 		tree[name] = []
+
+	@staticmethod
+	def fill_menu_items(request, fields):
+
+		if request.session.session_key == None:
+			return
+		# ユーザー名
+		user_name = request.session.get('user')
+		# セッション有効時間
+		elapsed = time.time() - request.session.get('logged_in_time')
+		# 全ページで共通のフィールド
+		fields_in_menu = {
+			'session_key' : request.session.session_key,
+			'user' : user_name,
+			'logged_in_time' : int(elapsed)
+		}
+		fields['session'] = fields_in_menu

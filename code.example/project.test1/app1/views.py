@@ -91,14 +91,8 @@ def main(request):
 	# =========================================================================
 	# contents
 	# =========================================================================
-	elapsed = (time.time() - request.session['logged_in_time'])
-	fields = {
-		'session': {
-			'session_key' : request.session.session_key,
-			'user' : user_name,
-			'logged_in_time' : elapsed
-		}
-	}
+	fields = {}
+	util.fill_menu_items(request, fields)
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('index.html')
 	return django.http.HttpResponse(template.render(context))
@@ -107,6 +101,7 @@ def _try_login(request):
 
 	if request.method != 'POST':
 		return False
+
 	user_name = request.POST.get('login.user')
 	if len(user_name) == 0:
 		logger.debug('ユーザー [' + util.to_string(user_name) + '] によるログイン失敗。')
@@ -121,7 +116,9 @@ def _try_login(request):
 	request.session.set_expiry(0)
 	# save() によって session_key が発行される
 	request.session.save()
+
 	logger.debug('ユーザー [' + util.to_string(user_name) + '] がログインしました。新しいセッションが開始されました。session_key=[' + str(request.session.session_key) + ']')
+
 	return True
 
 def login(request):
