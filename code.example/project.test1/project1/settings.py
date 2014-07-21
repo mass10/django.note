@@ -72,6 +72,12 @@ LOGGING = {
 			'level':'DEBUG',
 			'class':'django.utils.log.NullHandler',
 		},
+		'logfile': {
+			'level': 'DEBUG',
+			'class':'logging.handlers.WatchedFileHandler',
+			'filename': '/var/log/django/application.log',
+			'formatter': 'verbose',
+		},
 		'console': {
 			'level':'DEBUG',
 			'class':'logging.StreamHandler',
@@ -80,7 +86,7 @@ LOGGING = {
 	},
 	'loggers': {
 		'app1': {
-			'handlers': ['console'],
+			'handlers': ['logfile'],
 			'level': 'DEBUG',
 		},
 	}
@@ -112,8 +118,8 @@ SESSION_COOKIE_NAME = 'sessionid'
 #
 # in-memory session を利用するために追記した
 #
-# SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 CACHES = {
 	'default' : {
 		'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',

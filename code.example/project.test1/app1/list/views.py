@@ -38,6 +38,7 @@ def show(request):
 	# validation	
 	# =========================================================================	
 	if False == util.validate_session(request):
+		logger.debug('トップページへリダイレクトします。')
 		return django.http.HttpResponseRedirect('/')
 
 	# =========================================================================
@@ -61,6 +62,7 @@ def show(request):
 			'filters': filters,
 		},
 	}
+	logger.debug('コンテンツを返します。')
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('list/show.html')
 	return django.http.HttpResponse(template.render(context))

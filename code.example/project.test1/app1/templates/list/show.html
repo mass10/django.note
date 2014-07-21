@@ -7,13 +7,8 @@
 	</head>
 	<body class="base">
 		<form method="post" action="/">
-			<table width="100%">
-				<tr>
-					<td><a href="/"><span class="banner">Django Application Sample</span></a></td>
-					<td style="vertical-align: bottom"><div style="text-align: right; color: #999999; ">[{{ session.user }}]</div></td>
-					<td style="vertical-align: bottom"><a href="/logout" style="color: #999999">logout</a></td>
-				</tr>
-			</table>
+			<a href="/"><span class="banner">Django Application Sample</span></a><br>
+			<span style="color: #999999;">[{{ session.user }}] ({{ session.logged_in_time }} sec.)&nbsp;<a href="/logout" style="color: #999999">logout</a></span>
 			<hr>
 			<table>
 				<tr>

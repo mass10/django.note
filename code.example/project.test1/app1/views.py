@@ -81,6 +81,7 @@ def main(request):
 	# validation	
 	# =========================================================================	
 	if False == util.validate_session(request):
+		logger.debug('ログインページへリダイレクトします。')
 		return django.http.HttpResponseRedirect('/login')
 
 	# =========================================================================
@@ -108,16 +109,19 @@ def _try_login(request):
 		return False
 	user_name = request.POST.get('login.user')
 	if len(user_name) == 0:
+		logger.debug('ユーザー [' + util.to_string(user_name) + '] によるログイン失敗。')
 		return False
 
 	# ログインユーザー
-	request.session['user'] = user_name
+	request.session['user'] = util.to_string(user_name)
 	# ログイン日時
 	request.session['logged_in_time'] = time.time()
 	# セッション有効期間
 	#   - 0:ウェブブラウザを閉じるまで
 	request.session.set_expiry(0)
-	# request.session.save()
+	# save() によって session_key が発行される
+	request.session.save()
+	logger.debug('ユーザー [' + util.to_string(user_name) + '] がログインしました。新しいセッションが開始されました。session_key=[' + str(request.session.session_key) + ']')
 	return True
 
 def login(request):
