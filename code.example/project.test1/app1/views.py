@@ -8,6 +8,7 @@ import subprocess
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.sessions.backends.cache import SessionStore
+from app1.utils import *
 
 # Create your views here.
 
@@ -77,7 +78,7 @@ def main(request):
 	# =========================================================================
 	# validation	
 	# =========================================================================	
-	if not _is_valid_session(request):
+	if not util.validate_session(request):
 		return django.http.HttpResponseRedirect('/login')
 
 	# =========================================================================
@@ -142,12 +143,3 @@ def login(request):
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('login.html')
 	return django.http.HttpResponse(template.render(context))
-
-def _is_valid_session(request):
-
-	user_name = request.session.get('user')
-	if user_name == None:
-		return False;
-	if user_name == '':
-		return False
-	return True
