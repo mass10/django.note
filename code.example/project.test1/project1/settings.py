@@ -29,23 +29,22 @@ ALLOWED_HOSTS = []
 
 # Application definition
 INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'app1',
-    # 'app1.list',
+	'django.contrib.admin',
+	'django.contrib.auth',
+	'django.contrib.contenttypes',
+	'django.contrib.sessions',
+	'django.contrib.messages',
+	'django.contrib.staticfiles',
+	'app1',
 )
 
 MIDDLEWARE_CLASSES = (
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'django.contrib.sessions.middleware.SessionMiddleware',
+	'django.middleware.common.CommonMiddleware',
+	'django.middleware.csrf.CsrfViewMiddleware',
+	'django.contrib.auth.middleware.AuthenticationMiddleware',
+	'django.contrib.messages.middleware.MessageMiddleware',
+	'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 ROOT_URLCONF = 'project1.urls'
@@ -56,45 +55,45 @@ WSGI_APPLICATION = 'project1.wsgi.application'
 # ロギングを利用するために追記した
 #
 LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': True,
-    'formatters': {
-        'verbose': {
-            'format': '%(asctime)s [%(levelname)s] (pid:%(process)d) (thread:%(thread)d) <%(module)s> %(message)s'
-        },
-        'simple': {
-            'format': '%(levelname)s %(message)s'
-        },
-    },
-    'filters': {
-    },
-    'handlers': {
-        'null': {
-            'level':'DEBUG',
-            'class':'django.utils.log.NullHandler',
-        },
-        'console':{
-            'level':'DEBUG',
-            'class':'logging.StreamHandler',
-            'formatter': 'verbose',
-        },
-    },
-    'loggers': {
-        'app1': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-        },
-    }
+	'version': 1,
+	'disable_existing_loggers': True,
+	'formatters': {
+		'verbose': {
+			'format': '%(asctime)s [%(levelname)s] (pid:%(process)d) (thread:%(thread)d) <%(module)s> %(message)s'
+		},
+		'simple': {
+			'format': '%(levelname)s %(message)s'
+		},
+	},
+	'filters': {
+	},
+	'handlers': {
+		'null': {
+			'level':'DEBUG',
+			'class':'django.utils.log.NullHandler',
+		},
+		'console': {
+			'level':'DEBUG',
+			'class':'logging.StreamHandler',
+			'formatter': 'verbose',
+		},
+	},
+	'loggers': {
+		'app1': {
+			'handlers': ['console'],
+			'level': 'DEBUG',
+		},
+	}
 }
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+	'default': {
+		'ENGINE': 'django.db.backends.sqlite3',
+		'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+	}
 }
 
 APPEND_SLASH = False
@@ -105,7 +104,7 @@ APPEND_SLASH = False
 #
 # cookie に関するパラメータを追記した
 #
-SESSION_COOKIE_AGE = 60 * 1 #sec
+# SESSION_COOKIE_AGE = -1 #sec
 SESSION_COOKIE_NAME = 'sessionid'
 
 
@@ -113,13 +112,15 @@ SESSION_COOKIE_NAME = 'sessionid'
 #
 # in-memory session を利用するために追記した
 #
+# SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 CACHES = {
 	'default' : {
 		'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
 		'LOCATION': 'WE ARE THE WORLD'
-	}    
+	}
 }
+SESSION_COOKIE_HTTPONLY = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/

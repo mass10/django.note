@@ -15,5 +15,6 @@ urlpatterns = patterns('',
 	url(r'^admin/', include(admin.site.urls)),
 	url(r'^api$', 'app1.views.api', name='api'),
 	url(r'^login$', 'app1.views.login', name='login'),
+	url(r'^logout$', 'app1.views.logout', name='logout'),
 	url(r'^list/show$', 'app1.list.views.show', name='show'),
 )
