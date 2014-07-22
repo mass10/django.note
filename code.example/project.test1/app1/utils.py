@@ -86,6 +86,41 @@ class util:
 		return result
 
 	@staticmethod
+	def listeners_list():
+
+		#
+		# この部分は外部コマンドに委譲すべき。
+		#
+
+		command_text = ['sudo', '-u', 'root', '/bin/netstat', '-ntlp']
+
+		stream = subprocess.Popen(
+			command_text,
+			shell=False,
+			stdout=subprocess.PIPE).stdout
+
+		result = []
+
+		current_section = None
+
+		for line in stream:
+
+			line = line.strip()
+
+			if line == '':
+				continue
+
+			result.append(line)
+
+		stream.close()
+
+		#
+		# 戻りは正しいデータクラスを提供する。生の配列やリストをみだりに使わない。
+		#
+
+		return result
+
+	@staticmethod
 	def _create_node(tree, name):
 
 		if tree.has_key(name):
