@@ -14,23 +14,28 @@
 				<br>
 				<br>
 				<br>
+				{{ login_form.error_message }}
 				<br>
 				<br>
 				<table>
 					<tr>
-						<td><span class="login_form_label">mail address</span></td>
+						<td><span class="login_form_label">MAIL ADDRESS</span></td>
 						<td><div style="width: 20px"></div></td>
-						<td><input class="login_form" type="text" name="login.user" value="" style="{{ form_data.user_name }}" placeholder="Email Address"></td>
+						<td><input class="login_form" type="text" name="login_form.user" value="" style="{{ form_data.user_name }}" placeholder="EMAIL ADDRESS"></td>
 					</tr>
 					<tr>
-						<td><span class="login_form_label">password</span></td>
+						<td><span class="login_form_label">PASSWORD</span></td>
 						<td></td>
-						<td><input class="login_form" type="password" name="login.password" value="" placeholder="Password"></td>
+						<td><input class="login_form" type="password" name="login_form.password" value="" placeholder="PASSWORD"></td>
 					</tr>
 				</table>
 				<br>
-				<input type="submit" name="login.submit_button" value="     submit     " id="login_button_control"><br><br>
-				<a href="javascript: void(0)">or click here to sign-up.</a>
+				<input type="submit" name="login_form.submit_button" value="     SUBMIT     " id="login_button_control"><br><br>
+				<a href="javascript: void(0)">OR CLICK HERE TO SIGN-UP FREE.</a>
+				<br>
+				<br>
+				<br>
+				<br>
 			</center>
 			<hr>
 			{% csrf_token %}

@@ -30,7 +30,7 @@ class util:
 	def iptables_list():
 
 		#
-		# この部分は外部コマンドに委譲すべき
+		# この部分は外部コマンドに委譲すべき。
 		#
 
 		command_text = [
@@ -78,6 +78,10 @@ class util:
 				result[current_section].append(line)
 
 		stream.close()
+
+		#
+		# 戻りは正しいデータクラスを提供する。生の配列やリストをみだりに使わない。
+		#
 
 		return result
 

@@ -102,8 +102,8 @@ def _try_login(request):
 	if request.method != 'POST':
 		return False
 
-	user_name = request.POST.get('login.user')
-	if len(user_name) == 0:
+	user_name = request.POST.get('login_form.user')
+	if user_name == None or user_name == '':
 		logger.debug('ユーザー [' + util.to_string(user_name) + '] によるログイン失敗。')
 		return False
 
@@ -111,6 +111,18 @@ def _try_login(request):
 	request.session['user'] = util.to_string(user_name)
 	# ログイン日時
 	request.session['logged_in_time'] = time.time()
+	# 長い文字列
+	request.session['long_item'] = [
+		'ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ',
+		'ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ',
+		'ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ',
+		'ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ',
+		'ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ',
+		'ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ',
+		'ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ',
+		'ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ',
+		'ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ',
+	]
 	# セッション有効期間
 	#   - 0:ウェブブラウザを閉じるまで
 	request.session.set_expiry(0)
@@ -154,6 +166,11 @@ def login(request):
 	# contents
 	# =========================================================================
 	fields = {}
+	
+	if request.method == 'POST':
+		fields['login_form'] = {
+			'error_message': 'ログイン画面のテストです。MAIL ADDRESS に何か文字列を入力してください。',
+		}
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('login.html')
 	return django.http.HttpResponse(template.render(context))
