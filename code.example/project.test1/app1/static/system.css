@@ -1,0 +1,40 @@
+body.base {
+
+}
+
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+span.banner {
+	font-size: 40px;
+}
+
+span.login_form_label {
+	font-size: 26px;
+}
+
+input.login_form {
+	font-size: 26px;
+	width: 320px;
+}
+
+#login_button_control {
+	font-size: 26px;
+	width: 320px;
+}
+
+
+

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Django Application Sample - [ログイン]</title>
+		<link rel="stylesheet" type="text/css" href="/static/system.css">
+	</head>
+	<body class="base">
+		<form method="post" action="/login">
+			<a href="/"><span class="banner">Django Application Sample</span></a><br>
+			<center>
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				{{ login_form.error_message }}
+				<br>
+				<br>
+				<table>
+					<tr>
+						<td><span class="login_form_label">MAIL ADDRESS</span></td>
+						<td><div style="width: 20px"></div></td>
+						<td><input class="login_form" type="text" name="login_form.user" value="" style="{{ form_data.user_name }}" placeholder="EMAIL ADDRESS"></td>
+					</tr>
+					<tr>
+						<td><span class="login_form_label">PASSWORD</span></td>
+						<td></td>
+						<td><input class="login_form" type="password" name="login_form.password" value="" placeholder="PASSWORD"></td>
+					</tr>
+				</table>
+				<br>
+				<input type="submit" name="login_form.submit_button" value="     SUBMIT     " id="login_button_control"><br><br>
+				<a href="javascript: void(0)">OR CLICK HERE TO SIGN-UP FREE.</a>
+				<br>
+				<br>
+				<br>
+				<br>
+			</center>
+			<hr>
+			{% csrf_token %}
+		</form>
+	</body>
+</html>
+

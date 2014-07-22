@@ -1,0 +1,2 @@
+- project.test1: Django のアプリケーションを作成する練習
+- skeleton1: Django のスケルトン(django-admin.py を使用して作成したもの)
