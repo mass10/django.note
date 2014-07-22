@@ -102,10 +102,10 @@ DATABASES = {
 	}
 }
 
+#
+# リクエスト URL の終端に '/' を付加しない
+#
 APPEND_SLASH = False
-
-
-
 
 #
 # cookie に関するパラメータを追記した
@@ -113,19 +113,25 @@ APPEND_SLASH = False
 # SESSION_COOKIE_AGE = -1 #sec
 SESSION_COOKIE_NAME = 'sessionid'
 
-
+#
+# セッションの実装に何を選択するか
+#
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 #
 # in-memory session を利用するために追記した
 #
-SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
-# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 CACHES = {
 	'default' : {
 		'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
 		'LOCATION': 'WE ARE THE WORLD'
 	}
 }
+
+#
+# JavaScript などによる Cookie へのアクセスを禁止する。ただし、実際にどのような挙動をするかはウェブブラウザの実装によるため、これは紳士協定と言える。
+#
 SESSION_COOKIE_HTTPONLY = True
 
 # Internationalization
@@ -141,14 +147,19 @@ LANGUAGE_CODE = 'ja-JP'
 #
 TIME_ZONE = 'Japan'
 
+#
+# 国際化対応
+#
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
+#
+# 静的コンテンツへのパス
+#
 STATIC_URL = '/static/'
