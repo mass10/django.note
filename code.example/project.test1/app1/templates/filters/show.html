@@ -1,3 +1,4 @@
+{% load nbsp %}
 <!DOCTYPE html>
 <html>
 	<head>
@@ -20,42 +21,43 @@
 							<tr>
 								<td><a href="/filters/show" class="base">netfilter</a></td>
 							</tr>
+							<tr>
+								<td><a href="/listeners/show" class="base">netstat</a></td>
+							</tr>
 						</table>
 					</td>
 					<td>
 						<h2>ファイアウォールの状態</h2>
 						<table border="1">
 							<tr>
-								<td>INPUT</td>
+								<td><span class="code">INPUT</span></td>
 							</tr>
 						{% for line in form.filters.INPUT %}
 							<tr>
-								<td><pre style="font-family: ＭＳ ゴシック; ">{{ line }}</pre></td>
+								<td><span class="code">{{ line }}</span></td>
 							</tr>
 						{% endfor %}
 							<tr>
-								<td>FORWARD</td>
+								<td><span class="code">FORWARD</span></td>
 							</tr>
 						{% for line in form.filters.FORWARD %}
 							<tr>
-								<td><pre style="font-family: ＭＳ ゴシック; ">{{ line }}</pre></td>
+								<td><span class="code">{{ line }}</span></td>
 							</tr>
 						{% endfor %}
 							<tr>
-								<td>OUTPUT</td>
+								<td><span class="code">OUTPUT</span></td>
 							</tr>
 						{% for line in form.filters.OUTPUT %}
 							<tr>
-								<td><pre style="font-family: ＭＳ ゴシック; ">{{ line }}</pre></td>
+								<td><span class="code">{{ line }}</span></td>
 							</tr>
 						{% endfor %}
 						</table>
 					</td>
 				</tr>
 			</table>
-
 			{% csrf_token %}
-
 		</form>
 	</body>
 </html>
