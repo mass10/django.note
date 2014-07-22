@@ -17,4 +17,5 @@ urlpatterns = patterns('',
 	url(r'^login$', 'app1.views.login', name='login'),
 	url(r'^logout$', 'app1.views.logout', name='logout'),
 	url(r'^filters/show$', 'app1.filters.views.show', name='show'),
+	url(r'^listeners/show$', 'app1.listeners.views.show', name='show'),
 )
