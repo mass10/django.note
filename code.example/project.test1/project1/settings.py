@@ -163,3 +163,8 @@ USE_TZ = True
 # 静的コンテンツへのパス
 #
 STATIC_URL = '/static/'
+
+#
+# デフォルト文字セット(utf-8)
+#
+# DEFAULT_CHARSET = 
