@@ -2,10 +2,21 @@ body.base {
 	font-family: "Century Gothic";
 }
 
+h2.section {
+	font-size: 24px;
+	color: #405050;
+}
+
+div.menuitem_cell {
+	background-color: #e0e0e0;
+	width: 180px;
+	overflow: hidden;
+}
+
 a.menuitem {
 	font-family: "Century Gothic";
 	font-size: 24px;
-	color: black;
+	color: #405050;
 }
 
 a:link {
@@ -46,7 +57,7 @@ span.code {
 
 input.login_form {
 	font-size: 26px;
-	width: 320px;
+	width: 400px;
 }
 
 #login_button_control {

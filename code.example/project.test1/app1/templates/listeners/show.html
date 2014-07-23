@@ -15,24 +15,24 @@
 					<td style="vertical-align: top">
 						<table>
 							<tr>
-								<td><a href="/api" class="menuitem" target="_blank">API</a></td>
+								<td><div class="menuitem_cell"><a href="/api" class="menuitem" target="_blank">API</a></div></td>
 							</tr>
 							<tr>
-								<td><a href="/filters/show" class="menuitem">netfilter</a></td>
+								<td><div class="menuitem_cell"><a href="/filters/show" class="menuitem">netfilter</a></div></td>
 							</tr>
 							<tr>
-								<td><a href="/listeners/show" class="menuitem">netstat</a></td>
+								<td><div class="menuitem_cell"><a href="/listeners/show" class="menuitem">netstat</a></div></td>
 							</tr>
 						</table>
 					</td>
 					<td>
-						<h2>NETSTAT</h2>
-						<table border="1">
-							<tr>
+						<h2 class="section">netstat</h2>
+						<table border="0" cellspacing="0" cellpadding="1">
+							<tr style="background-color: #203040; color: #ffffff;">
 								<td><span class="code">STATUS</span></td>
 							</tr>
 						{% for line in form.listeners %}
-							<tr>
+							<tr style="background-color: #203040; color: #ffffff;">
 								<td><span class="code">{{ line }}</span></td>
 							</tr>
 						{% endfor %}
