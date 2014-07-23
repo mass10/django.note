@@ -3,7 +3,7 @@ body.base {
 }
 
 h2.section {
-	font-size: 24px;
+	font-size: 40px;
 	color: #405050;
 }
 
@@ -15,7 +15,7 @@ div.menuitem_cell {
 
 a.menuitem {
 	font-family: "Century Gothic";
-	font-size: 24px;
+	font-size: 30px;
 	color: #405050;
 }
 
@@ -63,4 +63,8 @@ input.login_form {
 #login_button_control {
 	font-size: 26px;
 	width: 320px;
+}
+
+div.powerd_by {
+	font-size: 11px;
 }
