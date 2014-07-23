@@ -82,7 +82,7 @@ def main(request):
 	# validation	
 	# =========================================================================	
 	if False == util.validate_session(request):
-		logger.debug('ログインページへリダイレクトします。')
+		logger.debug(u'ログインページへリダイレクトします。')
 		return django.http.HttpResponseRedirect('/login')
 
 	# =========================================================================
@@ -105,7 +105,7 @@ def _try_login(request):
 
 	user_name = request.REQUEST.get('login_form.user')
 	if user_name == None or user_name == '':
-		logger.debug('ユーザー [' + util.to_string(user_name) + '] によるログイン失敗。session_key=[' + util.to_string(request.session.session_key) + ']')
+		logger.debug(u'ユーザー [' + util.to_string(user_name) + u'] によるログイン失敗。session_key=[' + util.to_string(request.session.session_key) + ']')
 		return False
 
 	# ログインユーザー
@@ -114,7 +114,7 @@ def _try_login(request):
 	request.session['logged_in_time'] = time.time()
 	# 長い文字列
 	request.session['long_item'] = [
-		'ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ',
+		u'ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ',
 		'ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ',
 		'ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ',
 		'ああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ',
@@ -130,7 +130,7 @@ def _try_login(request):
 	# save() によって session_key が発行される
 	request.session.save()
 
-	logger.debug('ユーザー [' + util.to_string(user_name) + '] がログインしました。新しいセッションが開始されました。session_key=[' + str(request.session.session_key) + ']')
+	logger.debug(u'ユーザー [' + util.to_string(user_name) + u'] がログインしました。新しいセッションが開始されました。session_key=[' + str(request.session.session_key) + ']')
 
 	return True
 
@@ -151,7 +151,7 @@ def login(request):
 	
 	# =========================================================================
 	# setup	
-	# =========================================================================	
+	# =========================================================================
 
 	# =========================================================================
 	# validation	
@@ -170,7 +170,7 @@ def login(request):
 	
 	if request.method == 'POST':
 		fields['login_form'] = {
-			'error_message': 'ログイン画面のテストです。MAIL ADDRESS に何か文字列を入力してください。',
+			'error_message': u'ログイン画面のテストです。MAIL ADDRESS に何か文字列を入力してください。',
 		}
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('login.html')

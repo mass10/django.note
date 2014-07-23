@@ -14,7 +14,8 @@ class util:
 
 		if unknown == None:
 			return ''
-		return str(unknown)
+#		return str(('' + unknown).encode('utf-8'))
+		return django.utils.encoding.smart_unicode(unknown, encoding='utf-8')
 
 	@staticmethod
 	def validate_session(request):
@@ -23,7 +24,7 @@ class util:
 		if user_name == None:
 			logger.debug('session timed out. session_key=[' + util.to_string(request.session.session_key) + ']')
 			return False
-		logger.debug('セッションは有効です。session_key=[' + util.to_string(request.session.session_key) + ']')
+		logger.debug(u'セッションは有効です。session_key=[' + util.to_string(request.session.session_key) + ']')
 		return True
 
 	@staticmethod

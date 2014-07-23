@@ -1,5 +1,5 @@
 body.base {
-	font-family: "Century Gothic";
+	font-family: "Century Gothic", "Verdana";
 }
 
 h2.section {
@@ -14,7 +14,7 @@ div.menuitem_cell {
 }
 
 a.menuitem {
-	font-family: "Century Gothic";
+	font-family: "Century Gothic", "Verdana";
 	font-size: 30px;
 	color: #405050;
 }
