@@ -71,6 +71,7 @@ def main(request):
 	# *************************************************************************
 
 	logger.info('<main> $$$ start $$$');
+	logger.info('<main> ' + str(request.COOKIES));
 
 	# =========================================================================
 	# setup	
@@ -99,12 +100,12 @@ def main(request):
 
 def _try_login(request):
 
-	if request.method != 'POST':
-		return False
+#	if request.method != 'POST':
+#		return False
 
-	user_name = request.POST.get('login_form.user')
+	user_name = request.REQUEST.get('login_form.user')
 	if user_name == None or user_name == '':
-		logger.debug('ユーザー [' + util.to_string(user_name) + '] によるログイン失敗。')
+		logger.debug('ユーザー [' + util.to_string(user_name) + '] によるログイン失敗。session_key=[' + util.to_string(request.session.session_key) + ']')
 		return False
 
 	# ログインユーザー
