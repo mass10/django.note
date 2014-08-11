@@ -178,6 +178,7 @@ def login(request):
 
 def _logout(request):
 
+	logger.debug('ユーザー [' + util.to_string(request.session.get('user')) + '] がログアウトしました。')
 	request.session.clear()
 
 def logout(request):

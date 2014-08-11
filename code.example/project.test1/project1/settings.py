@@ -167,4 +167,4 @@ STATIC_URL = '/static/'
 #
 # デフォルト文字セット(utf-8)
 #
-# DEFAULT_CHARSET = 
+# DEFAULT_CHARSET
