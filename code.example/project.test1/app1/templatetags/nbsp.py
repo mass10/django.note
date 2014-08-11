@@ -1,6 +1,6 @@
 # coding: utf-8
 #
-# “Æ©ƒtƒBƒ‹ƒ^‚ÌÀ‘•—á
+# ç‹¬è‡ªãƒ•ã‚£ãƒ«ã‚¿ã®å®Ÿè£…ä¾‹ 
 #
 
 from django import template

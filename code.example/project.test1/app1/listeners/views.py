@@ -15,7 +15,7 @@ def show(request):
 	# *************************************************************************
 	#
 	#
-	# netstat ‚Ìó‘Ô‚ğ•\¦‚·‚éƒAƒNƒVƒ‡ƒ“
+	# netstat ã®çŠ¶æ…‹ã‚’è¡¨ç¤ºã™ã‚‹ã‚¢ã‚¯ã‚·ãƒ§ãƒ³
 	#
 	#
 	# *************************************************************************
@@ -32,7 +32,7 @@ def show(request):
 	# validation	
 	# =========================================================================	
 	if False == util.validate_session(request):
-		logger.debug('ƒgƒbƒvƒy[ƒW‚ÖƒŠƒ_ƒCƒŒƒNƒg‚µ‚Ü‚·B')
+		logger.debug(u'ãƒˆãƒƒãƒ—ãƒšãƒ¼ã‚¸ã¸ãƒªãƒ€ã‚¤ãƒ¬ã‚¯ãƒˆã—ã¾ã™ã€‚')
 		return django.http.HttpResponseRedirect('/')
 
 	# =========================================================================
@@ -41,7 +41,7 @@ def show(request):
 
 	# current user
 	user_name = request.session.get('user')
-	# netstat ‚Ìİ’è‚ğƒ[ƒh
+	# netstat ã®è¨­å®šã‚’ãƒ­ãƒ¼ãƒ‰
 	listeners = util.listeners_list()
 
 	# =========================================================================
@@ -54,6 +54,5 @@ def show(request):
 	util.fill_menu_items(request, fields)
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('listeners/show.html')
-	logger.debug('ƒRƒ“ƒeƒ“ƒc‚ğ•Ô‚µ‚Ü‚·B')
+	logger.debug(u'ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ã‚’è¿”ã—ã¾ã™ã€‚')
 	return django.http.HttpResponse(template.render(context))
-
