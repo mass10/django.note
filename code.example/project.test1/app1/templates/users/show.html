@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Django Application Sample - [netfilter]</title>
+		<link rel="stylesheet" type="text/css" href="/static/system.css">
+	</head>
+	<body class="base">
+		<form method="post" action="/">
+			<a href="/"><span class="banner">Django Application Sample</span></a><br>
+			<span style="color: #999999;">[{{ menuitems.user }}] ({{ menuitems.logged_in_time }} sec.)&nbsp;<a href="/logout" style="color: #999999">logout</a></span>
+			<hr>
+			<table>
+				<tr>
+					<td style="vertical-align: top">
+						<table>
+							<tr>
+								<td><div class="menuitem_cell"><a href="/api" class="menuitem" target="_blank">API</a></div></td>
+							</tr>
+							<tr>
+								<td><div class="menuitem_cell"><a href="/filters/show" class="menuitem">netfilter</a></div></td>
+							</tr>
+							<tr>
+								<td><div class="menuitem_cell"><a href="/listeners/show" class="menuitem">netstat</a></div></td>
+							</tr>
+							<tr>
+								<td><div class="menuitem_cell"><a href="/users/show" class="menuitem">users</a></div></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<h2 class="section">users</h2>
+						<table border="0" cellspacing="0" cellpadding="1">
+<!-- 							<tr style="background-color: #203040; color: #ffffff;">
+								<td><span class="code">USERS</span></td>
+							</tr>
+ -->						{% for line in form.users %}
+							<tr style="background-color: #203040; color: #ffffff;">
+								<td><span class="code" style="">{{ line }}&nbsp;さん</span></td>
+							</tr>
+						{% endfor %}
+						</table>
+						<br>
+						<a href="/users/add">新しいユーザーを作成</a>
+					</td>
+				</tr>
+			</table>
+			<hr>
+			<table>
+				<tr>
+					<td><div class="powerd_by">POWERD BY DJANGO</div></td>
+				</tr>
+				<tr>
+					<td><a href="https://www.djangoproject.com/"><img src="/static/django-logo-negative.png" class="powerd_by"></a></td>
+				</tr>
+			</table>
+			{% csrf_token %}
+		</form>
+	</body>
+</html>
+
