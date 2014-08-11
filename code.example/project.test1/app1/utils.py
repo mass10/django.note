@@ -28,6 +28,41 @@ class util:
 		return True
 
 	@staticmethod
+	def enum_users():
+
+		#
+		# この部分は外部コマンドに委譲すべき。
+		#
+
+		command_text = [
+			u'sudo',
+			u'-u',
+			u'root',
+			u'cat',
+			u'/etc/passwd',
+		]
+
+		stream = subprocess.Popen(
+			command_text,
+			shell=False,
+			stdout=subprocess.PIPE).stdout
+
+		result = []
+
+		for line in stream:
+			line = line.strip()
+			if line == '':
+				continue
+			if line.index(':') == -1:
+				continue
+			fields = line.split(':')
+			result.append(fields)
+
+		stream.close()
+
+		return result
+
+	@staticmethod
 	def iptables_list():
 
 		#
