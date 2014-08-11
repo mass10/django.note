@@ -34,13 +34,7 @@ class util:
 		# この部分は外部コマンドに委譲すべき。
 		#
 
-		command_text = [
-			u'sudo',
-			u'-u',
-			u'root',
-			u'cat',
-			u'/etc/passwd',
-		]
+		command_text = [ 'sudo', '-u', 'root', '/bin/cat', '/etc/passwd', ]
 
 		stream = subprocess.Popen(
 			command_text,
@@ -56,7 +50,7 @@ class util:
 			if line.index(':') == -1:
 				continue
 			fields = line.split(':')
-			result.append(fields)
+			result.append(fields[0])
 
 		stream.close()
 
