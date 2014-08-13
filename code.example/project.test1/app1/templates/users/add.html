@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Django Application Sample - [users]</title>
+		<link rel="stylesheet" type="text/css" href="/static/system.css">
+		<script language="javascript">
+		function _submit_form() {
+			var f = document.forms[0];
+			f.submit();
+		}
+		</script>
+	</head>
+	<body class="base">
+		<form method="post" action="add">
+			<a href="/"><span class="banner">Django Application Sample</span></a><br>
+			<span style="color: #999999;">[{{ menuitems.user }}] ({{ menuitems.logged_in_time }} sec.)&nbsp;<a href="/logout" style="color: #999999">logout</a></span>
+			<hr>
+			<table>
+				<tr>
+					<td style="vertical-align: top">
+						<table>
+							<tr>
+								<td><div class="menuitem_cell"><a href="/api" class="menuitem" target="_blank">API</a></div></td>
+							</tr>
+							<tr>
+								<td><div class="menuitem_cell"><a href="/filters/show" class="menuitem">netfilter</a></div></td>
+							</tr>
+							<tr>
+								<td><div class="menuitem_cell"><a href="/listeners/show" class="menuitem">netstat</a></div></td>
+							</tr>
+							<tr>
+								<td><div class="menuitem_cell"><a href="/users/show" class="menuitem">users</a></div></td>
+							</tr>
+						</table>
+					</td>
+					<td>
+						<h2 class="section">users</h2>
+						<table>
+							<tr style="background-color: #203040; color: #ffffff;">
+								<td><span class="">ユーザー<!--(※入力された内容が os のユーザー名になります)--></span></td>
+								<td><input type="text" name="users.add.form.user" style="width: 300px; font-size: 26px" placeholder="ユーザー" value="{{ form_data.user }}"></td>
+							</tr>
+							<tr style="background-color: #203040; color: #ffffff;">
+								<td><span class="">パスワード</span></td>
+								<td><input type="password" name="users.add.form.password" style="width: 300px; font-size: 26px" placeholder="パスワード" value=""></td>
+							</tr>
+							<tr style="background-color: #203040; color: #ffffff;">
+								<td><span class="">グループ</span></td>
+								<td><input type="text" name="users.add.form.group" style="width: 300px; font-size: 26px" placeholder="グループ" value="{{ form_data.group }}"></td>
+							</tr>
+						</table>
+						<br>
+						<input type="submit" name="users.add.form.submit_button" value="作成">&nbsp;<input type="button" onclick="javascript: location.href = &quot;/users/show&quot;;" value="中止">
+					</td>
+				</tr>
+			</table>
+			<hr>
+			<table>
+				<tr>
+					<td><div class="powerd_by">POWERD BY DJANGO</div></td>
+				</tr>
+				<tr>
+					<td><a href="https://www.djangoproject.com/"><img src="/static/django-logo-negative.png" class="powerd_by"></a></td>
+				</tr>
+			</table>
+			{% csrf_token %}
+		</form>
+	</body>
+</html>
