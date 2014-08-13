@@ -72,9 +72,9 @@ def _try_register_new_user(request, fields):
 	form_user = request.POST.get('users.add.form.user')
 	form_password = request.POST.get('users.add.form.password')
 	form_group = request.POST.get('users.add.form.group')
-	logger.debug(u'form_user=[' + form_user + u']')
-	logger.debug(u'form_password=[' + form_password + u']')
-	logger.debug(u'form_group=[' + form_group + u']')
+	logger.debug('form_user=[' + form_user + ']')
+	logger.debug('form_password=[' + form_password + ']')
+	logger.debug('form_group=[' + form_group + ']')
 	command_text = [ 'sudo', '-u', 'root', 'useradd', form_user ]
 	stream = subprocess.Popen(
 		command_text,
