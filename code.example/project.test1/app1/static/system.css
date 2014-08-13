@@ -55,6 +55,12 @@ span.code {
 #	font-size: 12px;
 }
 
+div.code {
+	font-family: "ＭＳ ゴシック";
+	white-space: pre;
+#	font-size: 12px;
+}
+
 input.login_form {
 	font-size: 26px;
 	width: 400px;
