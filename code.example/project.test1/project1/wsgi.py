@@ -14,7 +14,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project1.settings")
 
 #
 # 「ImportError: No module named app1」というエラーを回避するために挿入した。検証中。
-#
+#    →その後除去...
 #import sys
 #sys.path.append('/django-applications/project1')
 
