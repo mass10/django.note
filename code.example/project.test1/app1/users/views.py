@@ -75,6 +75,7 @@ def _try_to_register_new_user(request, fields):
 	user_form = UserForm(request.POST)
 	if not user_form.is_valid():
 		fields['form_data'] = user_form
+		logger.debug(str(user_form))
 		logger.debug(u'入力エラーにより要求は拒否されました。')
 		return False
 
@@ -93,6 +94,8 @@ def _try_to_register_new_user(request, fields):
 	# ユーザーを登録します。
 	# =========================================================================
 	logger.debug(u'新しいアカウントを作成します。')
+	logger.debug(u'新しいアカウントを作成しました。')
+	return True
 	command_text = [ 'sudo', '-u', 'root', 'useradd', form_user ]
 	stream = subprocess.Popen(
 		command_text,
