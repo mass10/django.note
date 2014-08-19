@@ -75,6 +75,7 @@ def _try_to_register_new_user(request, fields):
 	user_form = UserForm(request.POST)
 	if not user_form.is_valid():
 		fields['form_data'] = user_form
+		logger.debug(u'入力エラーにより要求は拒否されました。')
 		return False
 
 	# =========================================================================
