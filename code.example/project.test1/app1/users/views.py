@@ -12,8 +12,6 @@ from app1.users.form import *
 logger = logging.getLogger(__name__)
 
 
-UserForm()
-
 
 def show(request):
 
@@ -75,7 +73,7 @@ def _try_to_register_new_user(request, fields):
 	user_form = UserForm(request.POST)
 	if not user_form.is_valid():
 		fields['form_data'] = user_form
-		# logger.debug(str(user_form))
+		logger.debug(str(user_form))
 		logger.debug(u'入力エラーにより要求は拒否されました。')
 		return False
 
@@ -85,25 +83,30 @@ def _try_to_register_new_user(request, fields):
 	form_user = user_form.cleaned_data.get('user_id')
 	form_password = user_form.cleaned_data.get('password')
 	form_group = user_form.cleaned_data.get('group_id')
+
 	logger.debug(u'user_id=[' + util.to_string(form_user) + ']')
 	logger.debug(u'password=[' + util.to_string(form_password) + ']')
 	logger.debug(u'group_id=[' + util.to_string(form_group) + ']')
+
 	fields['form_data'] = user_form
 
 	# =========================================================================
 	# ユーザーを登録します。
 	# =========================================================================
 	logger.debug(u'新しいアカウントを作成します。')
+
+	if 0:
+		command_text = [ 'sudo', '-u', 'root', 'useradd', form_user ]
+		stream = subprocess.Popen(
+			command_text,
+			shell=False,
+			stdout=subprocess.PIPE).stdout
+		for line in stream:
+			pass
+		stream.close()
+
 	logger.debug(u'新しいアカウントを作成しました。')
-	return True
-	command_text = [ 'sudo', '-u', 'root', 'useradd', form_user ]
-	stream = subprocess.Popen(
-		command_text,
-		shell=False,
-		stdout=subprocess.PIPE).stdout
-	for line in stream:
-		pass
-	stream.close()
+
 	return True
 
 def add(request):
@@ -148,9 +151,7 @@ def add(request):
 	# このコンテンツのポスト先
 	fields['page_action'] = '/users/add'
 	# コンテンツ返却
-	if fields.has_key('form_data') == False:
-		fields['form_data'] = UserForm()
-	# fields['form_data'] = UserForm(request.POST)
+	fields['form_data'] = UserForm(request.POST)
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('users/add.html')
 	return django.http.HttpResponse(template.render(context))
