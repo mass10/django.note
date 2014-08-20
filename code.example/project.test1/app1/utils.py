@@ -4,6 +4,7 @@ import django
 import logging
 import subprocess
 import time
+import json
 
 logger = logging.getLogger(__name__)
 
@@ -30,133 +31,43 @@ class util:
 	@staticmethod
 	def enum_users():
 
-		#
-		# この部分は外部コマンドに委譲すべき。
-		#
-
-		command_text = [ 'sudo', '-u', 'root', '/bin/cat', '/etc/passwd', ]
-
+		command_text = ['bin/enum_users.py']
 		stream = subprocess.Popen(
 			command_text,
 			shell=False,
 			stdout=subprocess.PIPE).stdout
-
-		result = []
-
-		for line in stream:
-			line = line.strip()
-			if line == '':
-				continue
-			if line.index(':') == -1:
-				continue
-			fields = line.split(':')
-			result.append(fields[0])
-
+		result = json.load(stream)
 		stream.close()
-
 		return result
 
 	@staticmethod
 	def iptables_list():
 
-		#
-		# この部分は外部コマンドに委譲すべき。
-		#
-
-		command_text = [
-			'sudo',
-			'-u',
-			'root',
-			'/sbin/iptables',
-			'--list',
-			'-nvx',
-			'--line-numbers']
-
+		command_text = ['bin/enum_filters.py']
 		stream = subprocess.Popen(
 			command_text,
 			shell=False,
 			stdout=subprocess.PIPE).stdout
-
-		result = {}
-
-		current_section = None
-
-		for line in stream:
-
-			line = line.strip()
-			if line == '':
-				continue
-
-			fields = line.split()
-			if fields[0] == 'num':
-				continue
-			elif fields[0] == 'Chain':
-				if fields[1] == 'INPUT':
-					current_section = 'INPUT'
-					util._create_node(result, current_section)
-				elif fields[1] == 'FORWARD':
-					current_section = 'FORWARD'
-					util._create_node(result, current_section)
-				elif fields[1] == 'OUTPUT':
-					current_section = 'OUTPUT'
-					util._create_node(result, current_section)
-				else:
-					pass
-			else:
-				if current_section == None:
-					continue
-				result[current_section].append(line)
-
+		result = json.load(stream)
 		stream.close()
-
-		#
-		# 戻りは正しいデータクラスを提供する。生の配列やリストをみだりに使わない。
-		#
-
 		return result
 
 	@staticmethod
 	def listeners_list():
 
-		#
-		# この部分は外部コマンドに委譲すべき。
-		#
-
-		command_text = ['sudo', '-u', 'root', '/bin/netstat', '-ntlp']
-
+		command_text = ['bin/enum_listeners.py']
 		stream = subprocess.Popen(
 			command_text,
 			shell=False,
 			stdout=subprocess.PIPE).stdout
-
 		result = []
-
-		current_section = None
-
 		for line in stream:
-
 			line = line.strip()
-
 			if line == '':
 				continue
-
 			result.append(line)
-
 		stream.close()
-
-		#
-		# 戻りは正しいデータクラスを提供する。生の配列やリストをみだりに使わない。
-		#
-
 		return result
-
-	@staticmethod
-	def _create_node(tree, name):
-
-		if tree.has_key(name):
-			return
-
-		tree[name] = []
 
 	@staticmethod
 	def fill_menu_items(request, fields):
