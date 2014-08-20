@@ -25,7 +25,8 @@ class util:
 		if user_name == None:
 			logger.debug('session timed out. session_key=[' + util.to_string(request.session.session_key) + ']')
 			return False
-		logger.debug(u'セッションは有効です。session_key=[' + util.to_string(request.session.session_key) + ']')
+		# logger.debug(u'セッションは有効です。session_key=[' + util.to_string(request.session.session_key) + ']')
+		logger.debug(u'セッションは有効です。')
 		return True
 
 	@staticmethod
