@@ -60,12 +60,7 @@ class util:
 			command_text,
 			shell=False,
 			stdout=subprocess.PIPE).stdout
-		result = []
-		for line in stream:
-			line = line.strip()
-			if line == '':
-				continue
-			result.append(line)
+		result = json.load(stream)
 		stream.close()
 		return result
 

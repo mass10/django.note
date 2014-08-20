@@ -17,20 +17,16 @@ def main():
 
 	result = []
 
-	current_section = None
-
 	for line in stream:
-
 		line = line.strip()
-
 		if line == '':
 			continue
-
-		print(line)
-		# result.append(line)
-
+		result.append(line)
 	stream.close()
 
-	# json.dump(result, sys.stdout, indent=True)
+	json.dump(result, sys.stdout, indent=True)
+
+	#改行の意味
+	print
 
 main()
