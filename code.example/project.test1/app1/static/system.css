@@ -8,34 +8,31 @@ h2.section {
 }
 
 div.menuitem_cell {
+	color: #505050;
 	background-color: #e0e0e0;
 	width: 180px;
 	overflow: hidden;
+	font-family: "Century Gothic", "Verdana";
 }
 
 a.menuitem {
-	font-family: "Century Gothic", "Verdana";
 	font-size: 30px;
 	color: #505050;
 }
 
 a:link {
-#	color: #808080;
     text-decoration: none;
 }
 
 a:visited {
-#	color: #808080;
     text-decoration: none;
 }
 
 a:hover {
-#	color: #808080;
     text-decoration: none;
 }
 
 a:active {
-#	color: #808080;
     text-decoration: none;
 }
 
