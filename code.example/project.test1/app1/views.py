@@ -71,7 +71,7 @@ def main(request):
 	# *************************************************************************
 
 	logger.info('<main> $$$ start $$$');
-	logger.info('<main> ' + str(request.COOKIES));
+	logger.info('COOKIES=[' + str(request.COOKIES) + ']');
 
 	# =========================================================================
 	# setup	
@@ -93,6 +93,7 @@ def main(request):
 	# contents
 	# =========================================================================
 	fields = {}
+	fields['window_title'] = 'HOME'
 	util.fill_menu_items(request, fields)
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('index.html')
@@ -158,6 +159,7 @@ def login(request):
 	# validation	
 	# =========================================================================	
 	if _try_login(request):
+		logger.debug(u'トップページへリダイレクトします。')
 		return django.http.HttpResponseRedirect('/')
 
 	# =========================================================================
@@ -167,8 +169,8 @@ def login(request):
 	# =========================================================================
 	# contents
 	# =========================================================================
+	logger.debug(u'コンテンツ出力')
 	fields = {}
-	
 	if request.method == 'POST':
 		fields['login_form'] = {
 			'error_message': u'ログイン画面のテストです。MAIL ADDRESS に何か文字列を入力してください。',

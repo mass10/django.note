@@ -51,6 +51,8 @@ def show(request):
 		'users': users,
 	}
 
+	fields['window_title'] = 'ユーザー一覧'
+
 	# メニュー処理
 	util.fill_menu_items(request, fields)
 
@@ -150,6 +152,8 @@ def add(request):
 	util.fill_menu_items(request, fields)
 	# このコンテンツのポスト先
 	fields['page_action'] = '/users/add'
+	# ウィンドウのタイトル
+	fields['window_title'] = 'ユーザー登録'
 	# コンテンツ返却
 	fields['form_data'] = UserForm(request.POST)
 	context = django.template.RequestContext(request, fields)
@@ -187,7 +191,8 @@ def add_complete(request):
 	# =========================================================================
 	# contents
 	# =========================================================================
-
+	# ウィンドウのタイトル
+	fields['window_title'] = 'ユーザー登録完了'
 	# メニュー処理
 	util.fill_menu_items(request, fields)
 	# コンテンツ返却
