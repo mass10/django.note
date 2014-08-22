@@ -11,6 +11,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.sessions.backends.cache import SessionStore
 from app1.utils import *
+from app1.form import *
 
 # Create your views here.
 
@@ -105,10 +106,24 @@ def _try_login(request):
 		return False
 
 	logger.debug(u'ログインリクエストを検出しました。')
-	user_name = request.POST.get('login_form.user')
+
+	# =========================================================================
+	# フォーム検証
+	# =========================================================================
+	login_form = LoginForm(request.POST)
+	if not login_form.is_valid():
+		pass
+	user_name = login_form.cleaned_data.get('user_id')
 	if user_name == None or user_name == '':
 		logger.debug(u'ユーザー [' + util.to_string(user_name) + u'] によるログイン失敗。session_key=[' + util.to_string(request.session.session_key) + ']')
 		return False
+	if user_name.find('@') == -1:
+		logger.debug(u'ユーザー [' + util.to_string(user_name) + u'] によるログイン失敗。session_key=[' + util.to_string(request.session.session_key) + ']')
+		return False
+
+	# =========================================================================
+	# ログイン処理
+	# =========================================================================
 
 	# ログインユーザー
 	request.session['user'] = util.to_string(user_name)
@@ -171,10 +186,10 @@ def login(request):
 	# =========================================================================
 	logger.debug(u'コンテンツ出力')
 	fields = {}
+	login_form = LoginForm(request.POST)
 	if request.method == 'POST':
-		fields['login_form'] = {
-			'error_message': u'ログイン画面のテストです。MAIL ADDRESS に何か文字列を入力してください。',
-		}
+		fields['error_message'] = u'ログイン画面のテストです。MAIL ADDRESS にメールアドレスを入力してください。'
+	fields['form_data'] = login_form
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('login.html')
 	return django.http.HttpResponse(template.render(context))
