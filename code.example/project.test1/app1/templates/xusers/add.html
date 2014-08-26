@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load nn %}
+{% block content %}
+						<h2 class="section">xusers</h2>
+						<table>
+							<tr style="background-color: #203040; color: #ffffff;">
+								<td><div style="width: 260px">ユーザー</div></td>
+								<td><input type="text" name="user_id" style="width: 480px; font-size: 26px" placeholder="ユーザー" value="{{ form_data.user_id.value | nn }}"></td>
+							</tr>
+							<tr style="background-color: #203040; color: #ffffff;">
+								<td><div style="width: 260px">パスワード</div></td>
+								<td><input type="password" name="password" style="width: 480px; font-size: 26px" placeholder="パスワード" value=""></td>
+							</tr>
+							<tr style="background-color: #203040; color: #ffffff;">
+								<td><div style="width: 260px">名前(first name)</div></td>
+								<td><input type="text" name="first_name" style="width: 480px; font-size: 26px" placeholder="名前" value="{{ form_data.first_name.value | nn }}"></td>
+							</tr>
+							<tr style="background-color: #203040; color: #ffffff;">
+								<td><div style="width: 260px">名字(last name)</div></td>
+								<td><input type="text" name="last_name" style="width: 480px; font-size: 26px" placeholder="名字" value="{{ form_data.last_name.value | nn }}"></td>
+							</tr>
+							<tr style="background-color: #203040; color: #ffffff;">
+								<td><div style="width: 260px">メールアドレス</div></td>
+								<td><input type="text" name="mail" style="width: 480px; font-size: 26px" placeholder="メールアドレス" value="{{ form_data.mail.value | nn }}"></td>
+							</tr>
+						</table>
+						<br>
+						<input type="submit" name="xusers.add.form.submit_button" value="作成">
+						<input type="button" onclick="javascript: location.href = &quot;/xusers/show&quot;;" value="中止">
+{% endblock %}

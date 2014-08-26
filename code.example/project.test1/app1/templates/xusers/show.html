@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+						<!-- xusers/show.html -->
+						<h2 class="section">xusers</h2>
+						<table>
+							<tr style="background-color: #203040; color: #ffffff;">
+								<td><div class="code" style="">USERS</div></td>
+								<td><div class="code" style=""></div></td>
+								<td><div class="code" style=""></div></td>
+								<td><div class="code" style="">操作</div></td>
+							</tr>
+							{% for row in form.users %}
+							<tr style="background-color: #203040; color: #ffffff;">
+								<td><div class="code" style="width: 200px">{{ row.user_id }}</div></td>
+								<td><div class="code" style="width: 200px">{{ row.first_name }}&nbsp;{{ row.last_name}}</div></td>
+								<td><div class="code" style="width: 290px">{{ row.mail }}</div></td>
+								<td><input type="button" value="編集" style="width: 100px">&nbsp;<input type="button" value="停止" style="width: 100px"></td>
+							</tr>
+							{% endfor %}
+							<tr style="background-color: #f0f0f0">
+								<td colspan="4" style="vertical-align: center; height: 30px; text-align: right;">
+									<input type="button" onclick="javascript: location.href = &quot;/xusers/add&quot;" value="新しいユーザーを作成" style="width: 220px">
+								</td>
+							</tr>
+						</table>
+{% endblock %}
