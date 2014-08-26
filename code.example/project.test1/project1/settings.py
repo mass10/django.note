@@ -86,7 +86,7 @@ LOGGING = {
 	},
 	'loggers': {
 		'app1': {
-			'handlers': ['console', 'logfile'],
+			'handlers': ['logfile'],
 			'level': 'DEBUG',
 		},
 	}
@@ -121,13 +121,13 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
 
 #
 # in-memory session を利用するために追記した
-#
-CACHES = {
-	'default' : {
-		'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-		'LOCATION': 'WE ARE THE WORLD'
-	}
-}
+#    -> 消した
+# CACHES = {
+# 	'default' : {
+# 		'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+# 		'LOCATION': 'WE ARE THE WORLD'
+# 	}
+# }
 
 #
 # JavaScript などによる Cookie へのアクセスを禁止する。ただし、実際にどのような挙動をするかはウェブブラウザの実装によるため、これは紳士協定と言える。
@@ -169,3 +169,4 @@ STATIC_URL = '/static/'
 # ドキュメンテーション: 「DEFAULT_CHARSET に依存したコードを書いてはならない」
 #
 # DEFAULT_CHARSET
+
