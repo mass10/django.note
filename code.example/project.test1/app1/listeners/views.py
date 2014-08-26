@@ -4,6 +4,7 @@ import django
 import logging
 import subprocess
 import time
+import inspect
 from app1.utils import *
 
 logger = logging.getLogger(__name__)
@@ -22,7 +23,7 @@ def show(request):
 	# *************************************************************************
 	# *************************************************************************
 
-	logger.info('$$$ start $$$');
+	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> $$$ start $$$');
 
 	# =========================================================================
 	# setup	
@@ -33,6 +34,7 @@ def show(request):
 	# =========================================================================	
 	if False == util.validate_session(request):
 		logger.debug(u'トップページへリダイレクトします。')
+		logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
 		return django.http.HttpResponseRedirect('/')
 
 	# =========================================================================
@@ -54,5 +56,5 @@ def show(request):
 	util.fill_menu_items(request, fields)
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('listeners/show.html')
-	logger.debug(u'コンテンツを返します。')
+	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
 	return django.http.HttpResponse(template.render(context))

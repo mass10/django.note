@@ -5,6 +5,7 @@ import uuid
 import json
 import logging
 import subprocess
+import inspect
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.sessions.backends.cache import SessionStore
@@ -28,7 +29,7 @@ def show(request):
 	# *************************************************************************
 	# *************************************************************************
 
-	logger.info('$$$ start $$$');
+	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> $$$ start $$$');
 
 	# =========================================================================
 	# setup	
@@ -39,6 +40,7 @@ def show(request):
 	# =========================================================================	
 	if False == util.validate_session(request):
 		logger.debug('トップページへリダイレクトします。')
+		logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
 		return django.http.HttpResponseRedirect('/')
 
 	# =========================================================================
@@ -58,8 +60,8 @@ def show(request):
 		'filters': filters,
 	}
 	util.fill_menu_items(request, fields)
+	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('filters/show.html')
-	logger.debug('コンテンツを返します。')
 	return django.http.HttpResponse(template.render(context))
 

@@ -1,5 +1,7 @@
 # coding: utf-8
 
+import sys
+import codecs
 import django
 import uuid
 import json
@@ -7,6 +9,8 @@ import logging
 import subprocess
 import datetime
 import time
+import inspect
+import project1
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.sessions.backends.cache import SessionStore
@@ -17,6 +21,7 @@ from app1.form import *
 
 logger = logging.getLogger(__name__)
 
+# out = codecs.getwriter('utf-8')(sys.stdout)
 
 def api(request):
 
@@ -32,7 +37,7 @@ def api(request):
 	# *************************************************************************
 	# *************************************************************************
 
-	logger.info('<api> $$$ start $$$');
+	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> $$$ start $$$');
 
 	# =========================================================================
 	# setup	
@@ -54,10 +59,10 @@ def api(request):
 		'response': 'hello',
 		'current_user': current_user,
 	}
-	logger.info('<app1.views.api> --- end ---');
+	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
 	return django.http.HttpResponse(json.dumps(response))
 
-def main(request):
+def default(request):
 
 	# *************************************************************************
 	# *************************************************************************
@@ -71,8 +76,9 @@ def main(request):
 	# *************************************************************************
 	# *************************************************************************
 
-	logger.info('<main> $$$ start $$$');
+	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> $$$ start $$$');
 	logger.info('COOKIES=[' + str(request.COOKIES) + ']');
+	logger.info('BASE_DIR=[' + project1.settings.BASE_DIR + ']');
 
 	# =========================================================================
 	# setup	
@@ -84,6 +90,7 @@ def main(request):
 	# =========================================================================	
 	if False == util.validate_session(request):
 		logger.debug(u'ログインページへリダイレクトします。')
+		logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
 		return django.http.HttpResponseRedirect('/login')
 
 	# =========================================================================
@@ -93,6 +100,7 @@ def main(request):
 	# =========================================================================
 	# contents
 	# =========================================================================
+	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
 	fields = {}
 	fields['window_title'] = 'HOME'
 	util.fill_menu_items(request, fields)
@@ -164,7 +172,7 @@ def login(request):
 	# *************************************************************************
 	# *************************************************************************
 	# *************************************************************************
-	logger.debug('<login> $$$ start $$$')
+	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> $$$ start $$$');
 	
 	# =========================================================================
 	# setup	
@@ -175,6 +183,7 @@ def login(request):
 	# =========================================================================	
 	if _try_login(request):
 		logger.debug(u'トップページへリダイレクトします。')
+		logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
 		return django.http.HttpResponseRedirect('/')
 
 	# =========================================================================
@@ -192,6 +201,7 @@ def login(request):
 	fields['form_data'] = login_form
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('login.html')
+	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
 	return django.http.HttpResponse(template.render(context))
 
 def _logout(request):
@@ -212,7 +222,7 @@ def logout(request):
 	# *************************************************************************
 	# *************************************************************************
 	# *************************************************************************
-	logger.debug('<logout> $$$ start $$$')
+	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> $$$ start $$$');
 	
 	# =========================================================================
 	# setup	
@@ -230,4 +240,5 @@ def logout(request):
 	# =========================================================================
 	# contents
 	# =========================================================================
+	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
 	return django.http.HttpResponseRedirect('/')
