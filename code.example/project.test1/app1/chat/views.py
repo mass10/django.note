@@ -3,22 +3,30 @@
 import django
 import logging
 import subprocess
-import time
+import hashlib
 import inspect
+import json
+import datetime
+from django.shortcuts import render
+from django.http import HttpResponse
 from app1.utils import *
+from app1.models import *
+from django.shortcuts import *
 from django.contrib.auth.decorators import login_required
+from app1.chat.form import *
 
 logger = logging.getLogger(__name__)
 
+
 @login_required
-def show(request):
+def default(request):
 
 	# *************************************************************************
 	# *************************************************************************
 	# *************************************************************************
 	#
 	#
-	# netstat の状態を表示するアクション
+	# chat
 	#
 	#
 	# *************************************************************************
@@ -30,33 +38,36 @@ def show(request):
 	# =========================================================================
 	# setup	
 	# =========================================================================	
+	fields = {}
 
 	# =========================================================================
 	# validation	
-	# =========================================================================	
-	# if False == util.validate_session(request):
-	# 	logger.debug(u'トップページへリダイレクトします。')
-	# 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
-	# 	return django.http.HttpResponseRedirect('/')
+	# =========================================================================
+	if request.method == 'POST':
+		xform = MessageForm(request.POST)
+		if xform.is_valid():
+			print(u'投稿！');
+			message_text = xform.cleaned_data.get('message_text', '')
+			ChatMessageManager().create_new(request.user, message_text)
+		else:
+			print(u'ミス！');
 
 	# =========================================================================
 	# process
 	# =========================================================================
 
-	# current user
-	user_name = request.session.get('user')
-	# netstat の設定をロード
-	listeners = util.listeners_list()
-
 	# =========================================================================
 	# contents
 	# =========================================================================
-	fields = {}
+	fields['window_title'] = 'lonely chat room!'
+	fields['current_timestamp'] = datetime.datetime.now()
 	fields['form'] = {
-		'listeners': listeners,
+		'messages': ChatMessageManager().all()
 	}
+	# メニュー処理
 	util.fill_menu_items(request, fields)
-	context = django.template.RequestContext(request, fields)
-	template = django.template.loader.get_template('listeners/show.html')
+	# コンテンツ返却
 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
+	context = django.template.RequestContext(request, fields)
+	template = django.template.loader.get_template('chat/default.html')
 	return django.http.HttpResponse(template.render(context))

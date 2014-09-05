@@ -1,8 +1,14 @@
 # coding: utf-8
+import django
 from django.db import models
+from django.utils import timezone
 import project1
 import json
+import os
 import sqlite3
+import subprocess
+import mysql.connector
+import datetime
 
 # Create your models here.
 
@@ -15,6 +21,16 @@ class Person(models.Model):
 	last_name = models.CharField(max_length=100)
 	mail = models.CharField(max_length=1000)
 	password = models.CharField(max_length=1000)
+
+class ChatMessage(models.Model):
+
+	user_id = models.CharField(max_length=100)
+	time_posted = models.DateTimeField()
+	message_text = models.CharField(max_length=1000)
+
+	# これでも ORDER BY のように働く
+	# class Meta:
+	# 	ordering =  [ '-time_posted' ]
 
 class PersonManager(models.Manager):
 
@@ -39,7 +55,10 @@ class PersonManager(models.Manager):
 			connection.close()
 			raise
 
-	def create_new():
+	def create_new(self):
+
+		# 正しくは
+		# Xxx.objects.create(name=value, ...)
 
 		# path = project1.settings.DATABASES['default']['NAME']
 		# connection = sqlite3.connect(path, isolation_level=None)
@@ -55,3 +74,30 @@ class PersonManager(models.Manager):
 		# 	raise
 
 		pass
+
+class ChatMessageManager(models.Manager):
+
+	def all(self):
+
+		return ChatMessage.objects.all().order_by('-time_posted')
+
+	def create_new(self, user_id, message_text):
+
+		# 新しいメッセージの登録
+		ChatMessage.objects.create(
+			user_id=user_id,
+			message_text=message_text,
+			time_posted=django.utils.timezone.now())
+
+class Top:
+
+	def get(self):
+
+		command_text = os.path.join(project1.settings.BASE_DIR, 'bin/top.py')
+		stream = subprocess.Popen(
+			command_text,
+			shell=False,
+			stdout=subprocess.PIPE).stdout
+		result = json.load(stream)
+		stream.close()
+		return result

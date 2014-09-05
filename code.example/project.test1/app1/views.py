@@ -11,11 +11,13 @@ import datetime
 import time
 import inspect
 import project1
-from django.shortcuts import render
 from django.http import HttpResponse
-from django.contrib.sessions.backends.cache import SessionStore
+from django.shortcuts import render
+from django.utils.translation import ugettext
 from app1.utils import *
 from app1.form import *
+from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
 
 # Create your views here.
 
@@ -23,6 +25,7 @@ logger = logging.getLogger(__name__)
 
 # out = codecs.getwriter('utf-8')(sys.stdout)
 
+@login_required
 def api(request):
 
 	# *************************************************************************
@@ -62,6 +65,7 @@ def api(request):
 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
 	return django.http.HttpResponse(json.dumps(response))
 
+@login_required
 def default(request):
 
 	# *************************************************************************
@@ -78,20 +82,22 @@ def default(request):
 
 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> $$$ start $$$');
 	logger.info('COOKIES=[' + str(request.COOKIES) + ']');
-	logger.info('BASE_DIR=[' + project1.settings.BASE_DIR + ']');
 
 	# =========================================================================
-	# setup	
-	# =========================================================================	
-	user_name = request.session.get('user')
+	# setup
+	# =========================================================================
 
 	# =========================================================================
-	# validation	
-	# =========================================================================	
-	if False == util.validate_session(request):
-		logger.debug(u'ログインページへリダイレクトします。')
-		logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
-		return django.http.HttpResponseRedirect('/login')
+	# validation
+	# =========================================================================
+	# if not request.user.is_authenticated():
+	# 	print(u'ログインページへリダイレクトします。(with DJANGO AUTH)')
+	# 	return django.http.HttpResponseRedirect('/login')
+
+	# if False == util.validate_session(request):
+	# 	logger.debug(u'ログインページへリダイレクトします。')
+	# 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
+	# 	return django.http.HttpResponseRedirect('/login')
 
 	# =========================================================================
 	# process
@@ -122,16 +128,28 @@ def _try_login(request):
 	if not login_form.is_valid():
 		pass
 	user_name = login_form.cleaned_data.get('user_id')
+	password = login_form.cleaned_data.get('password')
 	if user_name == None or user_name == '':
-		logger.debug(u'ユーザー [' + util.to_string(user_name) + u'] によるログイン失敗。session_key=[' + util.to_string(request.session.session_key) + ']')
+		logger.info(u'ユーザー [' + util.to_string(user_name) + u'] によるログイン失敗。理由=[ユーザーID入力なし], session_key=[' + util.to_string(request.session.session_key) + ']')
 		return False
-	if user_name.find('@') == -1:
-		logger.debug(u'ユーザー [' + util.to_string(user_name) + u'] によるログイン失敗。session_key=[' + util.to_string(request.session.session_key) + ']')
-		return False
+	# if user_name.find('@') == -1:
+	# 	logger.debug(u'ユーザー [' + util.to_string(user_name) + u'] によるログイン失敗。session_key=[' + util.to_string(request.session.session_key) + ']')
+	# 	return False
 
 	# =========================================================================
 	# ログイン処理
 	# =========================================================================
+	user = django.contrib.auth.authenticate(username=user_name, password=password)
+	if user is None:
+		logger.info(u'ユーザー [' + util.to_string(user_name) + u'] によるログイン失敗。理由=[アカウント情報不正]')
+		return False
+	elif not user.is_active:
+		logger.info(u'ユーザー [' + util.to_string(user_name) + u'] によるログイン失敗。理由=[アカウントは inactive です]')
+		return False
+	else:
+		logger.info(u'ユーザー [' + util.to_string(user_name) + u'] によるログイン成功！')
+		django.contrib.auth.login(request, user)
+		pass
 
 	# ログインユーザー
 	request.session['user'] = util.to_string(user_name)
@@ -153,7 +171,7 @@ def _try_login(request):
 	#   - 0:ウェブブラウザを閉じるまで
 	request.session.set_expiry(0)
 	# save() によって session_key が発行される
-	request.session.save()
+	# request.session.save()
 
 	logger.debug(u'ユーザー [' + util.to_string(user_name) + u'] がログインしました。新しいセッションが開始されました。')
 
@@ -193,12 +211,12 @@ def login(request):
 	# =========================================================================
 	# contents
 	# =========================================================================
-	logger.debug(u'コンテンツ出力')
 	fields = {}
 	login_form = LoginForm(request.POST)
 	if request.method == 'POST':
 		fields['error_message'] = u'ログイン画面のテストです。MAIL ADDRESS にメールアドレスを入力してください。'
 	fields['form_data'] = login_form
+	fields['greeting_message_text'] = ugettext('Welcome to my site.')
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('login.html')
 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
@@ -207,7 +225,7 @@ def login(request):
 def _logout(request):
 
 	logger.debug(u'ユーザー [' + util.to_string(request.session.get('user')) + u'] がログアウトしました。')
-	request.session.clear()
+	django.contrib.auth.logout(request)
 
 def logout(request):
 
@@ -242,3 +260,18 @@ def logout(request):
 	# =========================================================================
 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
 	return django.http.HttpResponseRedirect('/')
+
+
+
+
+class my_abstract_view(TemplateView):
+
+	template_name = 'must be overridden'
+
+	def dispatch(self, request, *args, **kwargs):
+		print(my_abstract_view.dispatch)
+		return super(my_abstract_view, self).dispatch(request, *args, **kwargs)
+
+	def get(self, request, *args, **kwargs):
+		print(my_abstract_view.get)
+		return super(my_abstract_view, self).get(request, *args, **kwargs)

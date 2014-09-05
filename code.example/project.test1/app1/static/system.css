@@ -3,8 +3,9 @@ body.base {
 }
 
 h2.section {
-	font-size: 40px;
+	font-size: 20px;
 	color: #505050;
+	background-color: #e0e0e0;
 }
 
 div.menuitem_cell {
@@ -16,7 +17,7 @@ div.menuitem_cell {
 }
 
 a.menuitem {
-	font-size: 30px;
+	font-size: 16px;
 	color: #505050;
 }
 
@@ -39,7 +40,7 @@ a:active {
 span.banner {
 	color: #707070;
     text-decoration: none;
-	font-size: 58px;
+	font-size: 30px;
 }
 
 span.login_form_label {

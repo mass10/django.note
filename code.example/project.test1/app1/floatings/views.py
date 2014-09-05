@@ -1,24 +1,38 @@
 # coding: utf-8
 
+import sys
+import codecs
 import django
+import uuid
+import json
 import logging
 import subprocess
+import datetime
 import time
 import inspect
+import project1
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.utils.translation import ugettext
 from app1.utils import *
+from app1.form import *
 from django.contrib.auth.decorators import login_required
+
+# Create your views here.
 
 logger = logging.getLogger(__name__)
 
+# out = codecs.getwriter('utf-8')(sys.stdout)
+
 @login_required
-def show(request):
+def default(request):
 
 	# *************************************************************************
 	# *************************************************************************
 	# *************************************************************************
 	#
 	#
-	# netstat の状態を表示するアクション
+	# デフォルトページのアクション
 	#
 	#
 	# *************************************************************************
@@ -28,35 +42,24 @@ def show(request):
 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> $$$ start $$$');
 
 	# =========================================================================
-	# setup	
-	# =========================================================================	
+	# setup
+	# =========================================================================
 
 	# =========================================================================
-	# validation	
-	# =========================================================================	
-	# if False == util.validate_session(request):
-	# 	logger.debug(u'トップページへリダイレクトします。')
-	# 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
-	# 	return django.http.HttpResponseRedirect('/')
+	# validation
+	# =========================================================================
 
 	# =========================================================================
 	# process
 	# =========================================================================
-
-	# current user
-	user_name = request.session.get('user')
-	# netstat の設定をロード
-	listeners = util.listeners_list()
-
+	
 	# =========================================================================
 	# contents
 	# =========================================================================
+	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
 	fields = {}
-	fields['form'] = {
-		'listeners': listeners,
-	}
+	fields['window_title'] = 'HOME'
 	util.fill_menu_items(request, fields)
 	context = django.template.RequestContext(request, fields)
-	template = django.template.loader.get_template('listeners/show.html')
-	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
+	template = django.template.loader.get_template('floatings/default.html')
 	return django.http.HttpResponse(template.render(context))

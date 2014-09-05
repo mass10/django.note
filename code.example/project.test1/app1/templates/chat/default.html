@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+						<!-- chat/show.html -->
+						<h2 class="section">CHAT</h2>
+						{{ current_timestamp }}<br>
+						<hr>
+						<table border="0">
+							<tr style="">
+								<td>
+									{% for message in form.messages %}
+									<p>{{ message.user_id }}:<br>「{{ message.message_text }}」 ({{ message.time_posted }})</p>
+									<hr>
+									{% endfor %}
+								</td>
+								<td style="vertical-align: top;">
+									<table>
+										<tr>
+											<td style="vertical-align: top;"><textarea name="message_text" style="width: 400px; height: 120px"></textarea></td>
+										</tr>
+										<tr>
+											<td style="vertical-align: top; text-align: right"><input type="submit" name="" id="" value="送信"></td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+						<script>
+						function _execute_reload_document() {
+							location.href = "./";
+						}
+						// window.setInterval(_execute_reload_document, 2000);
+						</script>
+{% endblock %}

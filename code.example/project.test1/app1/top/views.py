@@ -7,6 +7,7 @@ import time
 import inspect
 from app1.utils import *
 from django.contrib.auth.decorators import login_required
+from app1.models import *
 
 logger = logging.getLogger(__name__)
 
@@ -42,21 +43,17 @@ def show(request):
 	# =========================================================================
 	# process
 	# =========================================================================
-
-	# current user
-	user_name = request.session.get('user')
-	# netstat の設定をロード
-	listeners = util.listeners_list()
+	result = Top().get()
 
 	# =========================================================================
 	# contents
 	# =========================================================================
 	fields = {}
 	fields['form'] = {
-		'listeners': listeners,
+		'lines': result,
 	}
 	util.fill_menu_items(request, fields)
 	context = django.template.RequestContext(request, fields)
-	template = django.template.loader.get_template('listeners/show.html')
+	template = django.template.loader.get_template('top/show.html')
 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
 	return django.http.HttpResponse(template.render(context))

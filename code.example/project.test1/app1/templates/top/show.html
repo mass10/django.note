@@ -1,12 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-						<!-- listeners/show.html -->
-						<h2 class="section">netstat</h2>
+						<!-- top/show.html -->
+						<h2 class="section">top</h2>
 						<table border="0" cellspacing="0" cellpadding="1">
-							<tr style="background-color: #203040; color: #ffffff;">
-								<td><span class="code">STATUS</span></td>
-							</tr>
-						{% for line in form.listeners %}
+						{% for line in form.lines %}
 							<tr style="background-color: #203040; color: #ffffff;">
 								<td><span class="code">{{ line }}</span></td>
 							</tr>
@@ -16,6 +13,6 @@
 						function _execute_reload_document() {
 							location.href = "./";
 						}
-						window.setInterval(_execute_reload_document, 3000);
+						window.setInterval(_execute_reload_document, 5000);
 						</script>
 {% endblock %}

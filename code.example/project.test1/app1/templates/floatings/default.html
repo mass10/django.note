@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+						<!-- floatings/default.html -->
+						<h2 class="section">FLOATING PANELS</h2>
+						<style>
+						#content li {
+							float: left;
+							width: 200px;
+							height: 200px;
+							margin: 0 10px 10px 0;
+							background-color: #505050;
+							color: #ffffff;
+						}
+
+						#content div {
+							float: left;
+							width: 200px;
+							height: 200px;
+							margin: 0 10px 10px 0;
+							background-color: #505050;
+							color: #ffffff;
+						}
+						</style>
+						<div id="wrapper">
+							<div id="header"></div>
+							<div id="content">
+								<div>
+									<table border="0" cellspacing="0" cellpadding="1">
+										<tr style="background-color: #203040; color: #ffffff;">
+											<td><span class="code">コンテンツ1</span></td>
+										</tr>
+									</table>
+								</div>
+								<div>コンテンツ2</div>
+								<div>コンテンツ3</div>
+								<div>コンテンツ4</div>
+							</div>
+							<div id="footer"></div>
+						</div>
+{% endblock %}

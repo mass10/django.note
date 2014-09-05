@@ -8,13 +8,14 @@ import subprocess
 import inspect
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.contrib.sessions.backends.cache import SessionStore
 from app1.utils import *
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
 logger = logging.getLogger(__name__)
 
+@login_required
 def show(request):
 
 	# *************************************************************************
@@ -38,10 +39,10 @@ def show(request):
 	# =========================================================================
 	# validation	
 	# =========================================================================	
-	if False == util.validate_session(request):
-		logger.debug('トップページへリダイレクトします。')
-		logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
-		return django.http.HttpResponseRedirect('/')
+	# if False == util.validate_session(request):
+	# 	logger.debug('トップページへリダイレクトします。')
+	# 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
+	# 	return django.http.HttpResponseRedirect('/')
 
 	# =========================================================================
 	# process

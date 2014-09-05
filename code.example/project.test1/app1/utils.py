@@ -74,7 +74,7 @@ class util:
 		if request.session.session_key == None:
 			return
 		# ユーザー名
-		user_name = request.session.get('user')
+		user_name = request.user.username
 		# セッション有効時間
 		elapsed = time.time() - request.session.get('logged_in_time')
 		# 全ページで共通のフィールド

@@ -5,17 +5,20 @@ import logging
 import subprocess
 import hashlib
 import inspect
+import json
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.sessions.backends.cache import SessionStore
 from app1.utils import *
 from app1.xusers.form import *
 from app1.models import *
+from django.shortcuts import *
+from django.contrib.auth.decorators import login_required
 
 logger = logging.getLogger(__name__)
 
 
-
+@login_required
 def show(request):
 
 	# *************************************************************************
@@ -40,14 +43,17 @@ def show(request):
 	# =========================================================================
 	# validation	
 	# =========================================================================	
-	if False == util.validate_session(request):
-		logger.debug(u'ログインページへリダイレクトします。')
-		logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
-		return django.http.HttpResponseRedirect(u'/login')
+	# if False == util.validate_session(request):
+	# 	logger.debug(u'ログインページへリダイレクトします。')
+	# 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
+	# 	return django.http.HttpResponseRedirect(u'/login')
 
 	# =========================================================================
 	# process
 	# =========================================================================
+
+	# unknown = Person.objects.get(id=3)
+	# print(str(unknown))
 
 	# ユーザーリストを抽出
 	# users = util.enum_users()
@@ -125,6 +131,7 @@ def _try_to_register_new_user(request, fields):
 
 	return True
 
+@login_required
 def add(request):
 
 	# *************************************************************************
@@ -146,9 +153,9 @@ def add(request):
 	# =========================================================================
 	# validation	
 	# =========================================================================	
-	if False == util.validate_session(request):
-		logger.debug(u'ログインページへリダイレクトします。')
-		return django.http.HttpResponseRedirect(u'/login')
+	# if False == util.validate_session(request):
+	# 	logger.debug(u'ログインページへリダイレクトします。')
+	# 	return django.http.HttpResponseRedirect(u'/login')
 
 	# =========================================================================
 	# process
@@ -176,6 +183,7 @@ def add(request):
 	template = django.template.loader.get_template('xusers/add.html')
 	return django.http.HttpResponse(template.render(context))
 
+@login_required
 def add_complete(request):
 
 	# *************************************************************************
@@ -197,9 +205,9 @@ def add_complete(request):
 	# =========================================================================
 	# validation	
 	# =========================================================================	
-	if False == util.validate_session(request):
-		logger.debug(u'ログインページへリダイレクトします。')
-		return django.http.HttpResponseRedirect(u'/login')
+	# if False == util.validate_session(request):
+	# 	logger.debug(u'ログインページへリダイレクトします。')
+	# 	return django.http.HttpResponseRedirect(u'/login')
 
 	# =========================================================================
 	# process

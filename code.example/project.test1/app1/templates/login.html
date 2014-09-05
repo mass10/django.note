@@ -1,9 +1,10 @@
 {% load nn %}
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Django Application Sample - [ログイン]</title>
+		<title>Django Application Sample - [{% trans 'LOGIN' %}]</title>
 		<link rel="stylesheet" type="text/css" href="/static/system.css">
 	</head>
 	<body class="base">
@@ -13,7 +14,7 @@
 				<br>
 				<br>
 				<br>
-				<br>
+				{{ greeting_message_text }}<br>
 				<br>
 				{{ error_message }}
 				<br>
