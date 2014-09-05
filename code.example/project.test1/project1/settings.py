@@ -45,6 +45,7 @@ MIDDLEWARE_CLASSES = (
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'django.middleware.locale.LocaleMiddleware',
 )
 
 ROOT_URLCONF = 'project1.urls'
@@ -138,23 +139,22 @@ SESSION_COOKIE_HTTPONLY = True
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
 
 #
-# 変更した
+# 言語設定
 #
 LANGUAGE_CODE = 'ja-JP'
 
 #
-# 変更した
+# タイムゾーン
 #
 TIME_ZONE = 'Japan'
+USE_TZ = True
 
 #
 # 国際化対応
 #
 USE_I18N = True
-
 USE_L10N = True
 
-USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
@@ -170,3 +170,12 @@ STATIC_URL = '/static/'
 #
 # DEFAULT_CHARSET
 
+
+LOCALE_PATHS = (
+	os.path.join(BASE_DIR, 'app1/locale/')
+)
+
+#
+# 認証が済んでいないセッションによるアクセスに対して見せるページ
+#
+LOGIN_URL = '/login'

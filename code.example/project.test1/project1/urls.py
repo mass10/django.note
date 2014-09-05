@@ -2,8 +2,13 @@
 
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+import app1
+from app1.gview01.views import *
+from app1.gview02.views import *
 
 admin.autodiscover()
+
+# app1.gview01.views.gview01()
 
 urlpatterns = patterns('',
 
@@ -24,4 +29,9 @@ urlpatterns = patterns('',
 	url(r'^xusers/show$', 'app1.xusers.views.show', name='show'),
 	url(r'^xusers/add$', 'app1.xusers.views.add', name='add'),
 	url(r'^xusers/add_complete$', 'app1.xusers.views.add_complete', name=''),
+	url(r'^chat/$', 'app1.chat.views.default', name=''),
+	url(r'^top/$', 'app1.top.views.show', name='show'),
+	url(r'^floatings/$', 'app1.floatings.views.default', name='show'),
+	url(r'^gview01/$', gview01.as_view()),
+	url(r'^gview02/$', gview02.as_view()),
 )
