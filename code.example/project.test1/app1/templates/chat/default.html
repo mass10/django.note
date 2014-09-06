@@ -2,15 +2,10 @@
 {% block content %}
 						<!-- chat/show.html -->
 						<h2 class="section">CHAT</h2>
-						{{ current_timestamp }}<br>
-						<hr>
 						<table border="0">
 							<tr style="">
 								<td>
-									{% for message in form.messages %}
-									<p>{{ message.user_id }}:<br>「{{ message.message_text }}」 ({{ message.time_posted }})</p>
-									<hr>
-									{% endfor %}
+									<div id="chat_area" style="width: 400px; "></div>
 								</td>
 								<td style="vertical-align: top;">
 									<table>
@@ -24,10 +19,42 @@
 								</td>
 							</tr>
 						</table>
+
+						<script type="text/javascript" src="/static/prototype.js"></script>
+
 						<script>
-						function _execute_reload_document() {
-							location.href = "./";
+						var my_loader = null;
+						function _on_load_document() {
+							my_loader = new Ajax.PeriodicalUpdater(
+								"chat_area",
+								"/chat/messages",
+								{
+									method: "get",
+									parameters: "a=1&b=2&c=3",
+									frequency: 1,
+									onSuccess: function(request) {
+									},
+									onComplete: function(request) {
+									},
+									onFailure: function(request) {
+										alert('onFailure');
+									},
+									onException: function (request, e) {
+										alert('onException');
+									}
+								}
+							);
 						}
-						// window.setInterval(_execute_reload_document, 2000);
+						
+						// function stop() {
+						// 	if(my_loader == null)
+						// 		return;
+						// 	if(my_loader == undefined)
+						// 		return;
+						// 	my_loader.stop();
+						// }
+
+						// onload イベントの登録
+						Event.observe(window, "load", _on_load_document);
 						</script>
 {% endblock %}
