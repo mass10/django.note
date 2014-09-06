@@ -46,12 +46,12 @@ def default(request):
 	if request.method == 'POST':
 		xform = MessageForm(request.POST)
 		if xform.is_valid():
-			print(u'投稿！');
+			logger.debug(u'投稿！');
 			message_text = xform.cleaned_data.get('message_text', '')
 			ChatMessageManager().create_new(request.user.username, message_text)
 			return django.http.HttpResponseRedirect('/chat/')
 		else:
-			print(u'ミス！');
+			logger.debug(u'ミス！');
 
 	# =========================================================================
 	# process
