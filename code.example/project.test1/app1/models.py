@@ -84,10 +84,11 @@ class ChatMessageManager(models.Manager):
 	def create_new(self, user_id, message_text):
 
 		# 新しいメッセージの登録
-		ChatMessage.objects.create(
+		new_message = ChatMessage.objects.create(
 			user_id=user_id,
 			message_text=message_text,
 			time_posted=django.utils.timezone.now())
+		new_message.save()
 
 class Top:
 
