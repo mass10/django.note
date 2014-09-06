@@ -1,0 +1,11 @@
+<!-- chat/messages.html -->
+(LOADED AT: {{ current_timestamp }})<br>
+<hr>
+<table>
+{% for message in form.messages %}
+	<tr>
+		<td style="border-style: solid; border-width: 1px; border-color: #a0a0a0; background-color: #f0f0f0; "><p style="font-size: 20px; color: #903030">{{ message.user_id }}:&nbsp;「{{ message.message_text }}」 ({{ message.time_posted }})</p></td>
+	</tr>
+{% endfor %}
+</table>
+<hr>
