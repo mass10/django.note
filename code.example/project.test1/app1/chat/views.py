@@ -48,7 +48,8 @@ def default(request):
 		if xform.is_valid():
 			print(u'投稿！');
 			message_text = xform.cleaned_data.get('message_text', '')
-			ChatMessageManager().create_new(request.user, message_text)
+			ChatMessageManager().create_new(request.user.username, message_text)
+			return django.http.HttpResponseRedirect('/chat/')
 		else:
 			print(u'ミス！');
 
@@ -70,4 +71,16 @@ def default(request):
 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('chat/default.html')
+	return django.http.HttpResponse(template.render(context))
+
+@login_required
+def messages(request):
+
+	fields = {}
+	fields['form'] = {
+		'messages': ChatMessageManager().all()
+	}
+	fields['current_timestamp'] = datetime.datetime.now()
+	context = django.template.RequestContext(request, fields)
+	template = django.template.loader.get_template('chat/messages.html')
 	return django.http.HttpResponse(template.render(context))
