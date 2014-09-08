@@ -3,12 +3,11 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 import app1
+from app1.top.views import *
 from app1.gview01.views import *
 from app1.gview02.views import *
 
 admin.autodiscover()
-
-# app1.gview01.views.gview01()
 
 urlpatterns = patterns('',
 
@@ -31,8 +30,11 @@ urlpatterns = patterns('',
 	url(r'^xusers/add_complete$', 'app1.xusers.views.add_complete', name=''),
 	url(r'^chat/$', 'app1.chat.views.default', name=''),
 	url(r'^chat/messages$', 'app1.chat.views.messages', name=''),
-	url(r'^top/$', 'app1.top.views.show', name='show'),
+	url(r'^top/$', top_views_default.as_view(), name=''),
+	url(r'^top/content$', top_views_content.as_view(), name=''),
 	url(r'^floatings/$', 'app1.floatings.views.default', name='show'),
+	url(r'^floatings/time$', 'app1.floatings.views.time', name=''),
 	url(r'^gview01/$', gview01.as_view()),
 	url(r'^gview02/$', gview02.as_view()),
+	url(r'^events/$', 'app1.events.views.default'),
 )

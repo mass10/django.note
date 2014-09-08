@@ -4,9 +4,12 @@
 		<meta charset="utf-8">
 		<title>Django Application Sample - [{{ window_title }}]</title>
 		<link rel="stylesheet" type="text/css" href="/static/system.css">
+		<script type="text/javascript" src="/static/prototype.js"></script>
+		<script type="text/javascript" src="/static/jquery-2.1.1.js"></script>
+		<script>jQuery.noConflict();</script>
 	</head>
 	<body class="base">
-		<form method="post" action="{{ page_action }}">
+		<form method="post" id="default_form" action="{{ page_action }}">
 			<a href="/"><span class="banner">Django Application Sample</span></a><br>
 			<span style="color: #999999;">[{{ menuitems.user }}] ({{ menuitems.logged_in_time }} sec.)&nbsp;<a href="/logout" style="color: #999999">logout</a></span>
 			<hr>
@@ -44,6 +47,9 @@
 							<tr>
 								<td><div class="menuitem_cell"><a href="/gview02/" class="menuitem">generic view samples(02)</a></div></td>
 							</tr>
+							<tr>
+								<td><div class="menuitem_cell"><a href="/events/" class="menuitem">HTML events</a></div></td>
+							</tr>
 						</table>
 					</td>
 					<td style="vertical-align: top">
@@ -65,6 +71,11 @@
 				</tr>
 			</table>
 			{% csrf_token %}
+			<script>
+			if(typeof _onload_document == "function") {
+				jQuery(document).ready(_onload_document);
+			}
+			</script>
 		</form>
 	</body>
 </html>

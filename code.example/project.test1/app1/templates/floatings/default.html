@@ -24,17 +24,22 @@
 						<div id="wrapper">
 							<div id="header"></div>
 							<div id="content">
-								<div>
-									<table border="0" cellspacing="0" cellpadding="1">
-										<tr style="background-color: #203040; color: #ffffff;">
-											<td><span class="code">コンテンツ1</span></td>
-										</tr>
-									</table>
-								</div>
-								<div>コンテンツ2</div>
-								<div>コンテンツ3</div>
-								<div>コンテンツ4</div>
+								<div onclick="javascript: _update(this);">コンテンツ1</div>
+								<div onclick="javascript: _update(this);">コンテンツ2</div>
+								<div onclick="javascript: _update(this);">コンテンツ3</div>
+								<div onclick="javascript: _update(this);">コンテンツ4</div>
 							</div>
 							<div id="footer"></div>
 						</div>
+						<script>
+						function _update(panel) {
+							var r = new XMLHttpRequest();
+							r.addEventListener("load", function(e) {
+								var json_struct = JSON.parse(r.responseText);
+								panel.innerHTML = json_struct.time;
+							});
+							r.open("GET", "/floatings/time");
+							r.send();
+						}
+						</script>
 {% endblock %}

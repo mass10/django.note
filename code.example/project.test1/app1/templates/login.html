@@ -6,9 +6,12 @@
 		<meta charset="utf-8">
 		<title>Django Application Sample - [{% trans 'LOGIN' %}]</title>
 		<link rel="stylesheet" type="text/css" href="/static/system.css">
+		<script type="text/javascript" src="/static/prototype.js"></script>
+		<script type="text/javascript" src="/static/jquery-2.1.1.js"></script>
+		<script>jQuery.noConflict();</script>
 	</head>
 	<body class="base">
-		<form method="post" action="/login">
+		<form method="post" id="default_form" action="/login">
 			<a href="/"><span class="banner">Django Application Sample</span></a><br>
 			<center>
 				<br>
@@ -40,6 +43,12 @@
 			</center>
 			<hr>
 			{% csrf_token %}
+			<script>
+			function _onload_document() {
+				jQuery('#login_user_id_control').focus();
+			}
+			jQuery(document).ready(_onload_document);
+			</script>
 		</form>
 	</body>
 </html>

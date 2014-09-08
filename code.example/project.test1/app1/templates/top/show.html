@@ -2,17 +2,30 @@
 {% block content %}
 						<!-- top/show.html -->
 						<h2 class="section">top</h2>
-						<table border="0" cellspacing="0" cellpadding="1">
-						{% for line in form.lines %}
-							<tr style="background-color: #203040; color: #ffffff;">
-								<td><span class="code">{{ line }}</span></td>
-							</tr>
-						{% endfor %}
-						</table>
+						<div id="inner_content"></div>
 						<script>
-						function _execute_reload_document() {
-							location.href = "./";
+						// 自動更新の仕掛けを初期化
+						var my_loader = null;
+						function _onload_document() {
+							my_loader = new Ajax.PeriodicalUpdater(
+								"inner_content",
+								"/top/content",
+								{
+									method: "get",
+									parameters: "",
+									frequency: 5,
+									onSuccess: function(request) {
+									},
+									onComplete: function(request) {
+									},
+									onFailure: function(request) {
+										alert('onFailure');
+									},
+									onException: function (request, e) {
+										alert('onException');
+									}
+								}
+							);
 						}
-						window.setInterval(_execute_reload_document, 5000);
 						</script>
 {% endblock %}

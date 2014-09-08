@@ -10,7 +10,7 @@
 								<td style="vertical-align: top;">
 									<table>
 										<tr>
-											<td style="vertical-align: top;"><textarea name="message_text" style="width: 400px; height: 120px"></textarea></td>
+											<td style="vertical-align: top;"><textarea name="message_text" id="id_message_text" style="width: 400px; height: 120px"></textarea></td>
 										</tr>
 										<tr>
 											<td style="vertical-align: top; text-align: right"><input type="submit" name="" id="" value="送信"></td>
@@ -19,12 +19,14 @@
 								</td>
 							</tr>
 						</table>
-
-						<script type="text/javascript" src="/static/prototype.js"></script>
-
 						<script>
+
 						var my_loader = null;
-						function _on_load_document() {
+
+						// 自動更新の仕掛けを初期化
+						function _setup_reloader() {
+							if(my_loader != null)
+								alert("二度読み！");
 							my_loader = new Ajax.PeriodicalUpdater(
 								"chat_area",
 								"/chat/messages",
@@ -45,7 +47,26 @@
 								}
 							);
 						}
-						// onload イベントの登録
-						Event.observe(window, "load", _on_load_document);
+
+						// キー入力イベント
+						function _on_key_textarea(e) {
+							if(e.keyCode == 13) {
+								control = jQuery(this);
+								inner_content = jQuery(control).val();
+								if(inner_content.length > 0) {
+									jQuery('#default_form').submit();
+									return;
+								}
+								e.preventDefault();
+							}
+						}
+
+						function _onload_document() {
+							// 自動更新の仕掛けを初期化
+							_setup_reloader();
+							// イベント登録
+							// jQuery('#id_message_text').keydown(_on_key_textarea);
+							jQuery('#id_message_text').focus();
+						}
 						</script>
 {% endblock %}

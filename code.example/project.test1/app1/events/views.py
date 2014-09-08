@@ -17,12 +17,11 @@ from django.utils.translation import ugettext
 from app1.utils import *
 from app1.form import *
 from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView
 
 # Create your views here.
 
 logger = logging.getLogger(__name__)
-
-# out = codecs.getwriter('utf-8')(sys.stdout)
 
 @login_required
 def default(request):
@@ -40,6 +39,7 @@ def default(request):
 	# *************************************************************************
 
 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> $$$ start $$$');
+	logger.info('COOKIES=[' + str(request.COOKIES) + ']');
 
 	# =========================================================================
 	# setup
@@ -58,15 +58,10 @@ def default(request):
 	# =========================================================================
 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
 	fields = {}
-	fields['window_title'] = 'floating panels'
+	fields['page_action'] = '/events/'
+	fields['window_title'] = 'HTML events'
 	util.fill_menu_items(request, fields)
 	context = django.template.RequestContext(request, fields)
-	template = django.template.loader.get_template('floatings/default.html')
+	template = django.template.loader.get_template('events/default.html')
 	return django.http.HttpResponse(template.render(context))
 
-def time(request):
-
-	response = {
-		'time': str(datetime.datetime.now())
-	}
-	return django.http.HttpResponse(json.dumps(response))

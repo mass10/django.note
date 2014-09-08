@@ -261,9 +261,6 @@ def logout(request):
 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
 	return django.http.HttpResponseRedirect('/')
 
-
-
-
 class my_abstract_view(TemplateView):
 
 	template_name = 'must be overridden'
@@ -275,3 +272,7 @@ class my_abstract_view(TemplateView):
 	def get(self, request, *args, **kwargs):
 		print(my_abstract_view.get)
 		return super(my_abstract_view, self).get(request, *args, **kwargs)
+
+	def post(self, request, *args, **kwargs):
+		print(my_abstract_view.get)
+		return super(my_abstract_view, self).post(request, *args, **kwargs)

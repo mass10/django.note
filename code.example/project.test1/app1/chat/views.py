@@ -5,7 +5,6 @@ import logging
 import subprocess
 import hashlib
 import inspect
-import json
 import datetime
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -61,10 +60,10 @@ def default(request):
 	# contents
 	# =========================================================================
 	fields['window_title'] = 'lonely chat room!'
-	fields['current_timestamp'] = datetime.datetime.now()
-	fields['form'] = {
-		'messages': ChatMessageManager().all()
-	}
+	# fields['current_timestamp'] = datetime.datetime.now()
+	# fields['form'] = {
+	# 	'messages': ChatMessageManager().all()
+	# }
 	# メニュー処理
 	util.fill_menu_items(request, fields)
 	# コンテンツ返却
@@ -73,8 +72,12 @@ def default(request):
 	template = django.template.loader.get_template('chat/default.html')
 	return django.http.HttpResponse(template.render(context))
 
-@login_required
 def messages(request):
+
+	if not request.user.is_authenticated:
+		return django.http.HttpResponse('')
+
+	print('username=[' + request.user.get_username() + ']')
 
 	fields = {}
 	fields['form'] = {
