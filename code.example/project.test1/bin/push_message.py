@@ -25,10 +25,13 @@ def _println(*arguments):
 		out.write('' + unknown)
 	out.write("\n")
 
-def _main():
+def _main(*argv):
 
+	message_text = u'自動生成されたメッセージです'
+	if 1 < len(argv):
+		message_text = argv[1]
 	ChatMessageManager().create_new(
-		u'root', u'自動生成されたメッセージです')
+		u'root', message_text)
 
-_main()
+_main(*sys.argv)
 
