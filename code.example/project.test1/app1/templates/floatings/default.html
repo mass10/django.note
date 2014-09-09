@@ -3,15 +3,6 @@
 						<!-- floatings/default.html -->
 						<h2 class="section">FLOATING PANELS</h2>
 						<style>
-						#content li {
-							float: left;
-							width: 200px;
-							height: 200px;
-							margin: 0 10px 10px 0;
-							background-color: #505050;
-							color: #ffffff;
-						}
-
 						#content div {
 							float: left;
 							width: 200px;
@@ -21,15 +12,11 @@
 							color: #ffffff;
 						}
 						</style>
-						<div id="wrapper">
-							<div id="header"></div>
-							<div id="content">
-								<div onclick="javascript: _update(this);">コンテンツ1</div>
-								<div onclick="javascript: _update(this);">コンテンツ2</div>
-								<div onclick="javascript: _update(this);">コンテンツ3</div>
-								<div onclick="javascript: _update(this);">コンテンツ4</div>
-							</div>
-							<div id="footer"></div>
+						<div id="content">
+							<div id="floating_panel" onclick="javascript: _update(this);">コンテンツ1</div>
+							<div id="floating_panel" onclick="javascript: _update(this);">コンテンツ2</div>
+							<div id="floating_panel" onclick="javascript: _update(this);">コンテンツ3</div>
+							<div id="floating_panel" onclick="javascript: _update(this);">コンテンツ4</div>
 						</div>
 						<script>
 						function _update(panel) {
