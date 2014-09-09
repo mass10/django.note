@@ -36,30 +36,14 @@ class PersonManager(models.Manager):
 
 	def list_all(self):
 
-		path = project1.settings.DATABASES['default']['NAME']
-		connection = sqlite3.connect(path, isolation_level=None)
-		try:
-			rows = connection.execute(
-				'select user_id, first_name, last_name, mail from app1_person order by 1')
-			result = []
-			for row in rows:
-				user = {
-					'user_id': row[0],
-					'first_name': row[1],
-					'last_name': row[2],
-					'mail': row[3],
-				}
-				result.append(user)
-			return result
-		except:
-			connection.close()
-			raise
+		return Person.objects.all()
 
 	def create_new(self):
 
 		# 正しくは
-		# Xxx.objects.create(name=value, ...)
+		# Person.objects.create(name=value, ...)
 
+		# どうしてもデータベースを開きたい場合...
 		# path = project1.settings.DATABASES['default']['NAME']
 		# connection = sqlite3.connect(path, isolation_level=None)
 		# try:
@@ -94,7 +78,9 @@ class Top:
 
 	def get(self):
 
-		command_text = os.path.join(project1.settings.BASE_DIR, 'bin/top.py')
+		command_text = [
+			'sudo', '-u', 'root',
+			os.path.join(project1.settings.BASE_DIR, 'bin/top.py')]
 		stream = subprocess.Popen(
 			command_text,
 			shell=False,
