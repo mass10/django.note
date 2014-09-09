@@ -50,6 +50,9 @@
 							<tr>
 								<td><div class="menuitem_cell"><a href="/events/" class="menuitem">HTML events</a></div></td>
 							</tr>
+							<tr>
+								<td><div class="menuitem_cell"><a href="/metro/" class="menuitem">メトロ</a></div></td>
+							</tr>
 						</table>
 					</td>
 					<td style="vertical-align: top">
@@ -72,9 +75,12 @@
 			</table>
 			{% csrf_token %}
 			<script>
-			if(typeof _onload_document == "function") {
-				jQuery(document).ready(_onload_document);
+			function _global_onload() {
+				if(typeof _onload_document == "function") {
+					_onload_document();
+				}
 			}
+			jQuery(document).ready(_global_onload);
 			</script>
 		</form>
 	</body>
