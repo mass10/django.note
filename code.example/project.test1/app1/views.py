@@ -90,14 +90,6 @@ def default(request):
 	# =========================================================================
 	# validation
 	# =========================================================================
-	# if not request.user.is_authenticated():
-	# 	print(u'ログインページへリダイレクトします。(with DJANGO AUTH)')
-	# 	return django.http.HttpResponseRedirect('/login')
-
-	# if False == util.validate_session(request):
-	# 	logger.debug(u'ログインページへリダイレクトします。')
-	# 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
-	# 	return django.http.HttpResponseRedirect('/login')
 
 	# =========================================================================
 	# process

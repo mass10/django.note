@@ -2,20 +2,14 @@
 {% block content %}
 						<!-- listeners/show.html -->
 						<h2 class="section">netstat</h2>
-						<table border="0" cellspacing="0" cellpadding="1">
-							<tr style="background-color: #203040; color: #ffffff;">
-								<td><span class="code">STATUS</span></td>
-							</tr>
-						{% for line in form.listeners %}
-							<tr style="background-color: #203040; color: #ffffff;">
-								<td><span class="code">{{ line }}</span></td>
-							</tr>
-						{% endfor %}
-						</table>
+						<div id="content"></div>
 						<script>
-						function _execute_reload_document() {
-							location.href = "./";
+						function _load_content() {
+							jQuery('#content').load("/listeners/content");
 						}
-						window.setInterval(_execute_reload_document, 3000);
+						function _onload_document() {
+							jQuery('#content').load("/listeners/content");
+							window.setInterval(_load_content, 1000);
+						}
 						</script>
 {% endblock %}
