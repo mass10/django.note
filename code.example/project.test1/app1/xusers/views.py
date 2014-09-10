@@ -43,17 +43,10 @@ def show(request):
 	# =========================================================================
 	# validation	
 	# =========================================================================	
-	# if False == util.validate_session(request):
-	# 	logger.debug(u'ログインページへリダイレクトします。')
-	# 	logger.info('<' + __name__ + '.' + inspect.getframeinfo(inspect.currentframe()).function + '()> --- end ---');
-	# 	return django.http.HttpResponseRedirect(u'/login')
 
 	# =========================================================================
 	# process
 	# =========================================================================
-
-	# unknown = Person.objects.get(id=3)
-	# print(str(unknown))
 
 	# ユーザーリストを抽出
 	# users = util.enum_users()
@@ -62,7 +55,6 @@ def show(request):
 	# =========================================================================
 	# contents
 	# =========================================================================
-	# logger.debug(u'コンテンツを返します。')
 	fields['form'] = {
 		'users': users,
 	}
@@ -105,30 +97,17 @@ def _try_to_register_new_user(request, fields):
 	# =========================================================================
 	logger.debug(u'新しいアカウントを作成します。')
 
-	# モデルを用いて新しいレコードを作成する方法
-	if 1:
-		new_entry = Person.objects.create(
-			user_id=form_user_id,
-			first_name=form_first_name,
-			last_name=form_last_name,
-			mail=form_mail,
-			password=form_password)
-		generator = hashlib.sha256()
-		new_entry.password = generator.update(new_entry.password)
-		new_entry.save()
-
-	if 0:
-		command_text = [ 'sudo', '-u', 'root', 'useradd', form_user_id ]
-		stream = subprocess.Popen(
-			command_text,
-			shell=False,
-			stdout=subprocess.PIPE).stdout
-		for line in stream:
-			pass
-		stream.close()
+	new_entry = Person.objects.create(
+		user_id=form_user_id,
+		first_name=form_first_name,
+		last_name=form_last_name,
+		mail=form_mail,
+		password=form_password)
+	generator = hashlib.sha256()
+	new_entry.password = generator.update(new_entry.password)
+	new_entry.save()
 
 	logger.debug(u'新しいアカウントを作成しました。')
-
 	return True
 
 @login_required
@@ -153,9 +132,6 @@ def add(request):
 	# =========================================================================
 	# validation	
 	# =========================================================================	
-	# if False == util.validate_session(request):
-	# 	logger.debug(u'ログインページへリダイレクトします。')
-	# 	return django.http.HttpResponseRedirect(u'/login')
 
 	# =========================================================================
 	# process
@@ -205,9 +181,6 @@ def add_complete(request):
 	# =========================================================================
 	# validation	
 	# =========================================================================	
-	# if False == util.validate_session(request):
-	# 	logger.debug(u'ログインページへリダイレクトします。')
-	# 	return django.http.HttpResponseRedirect(u'/login')
 
 	# =========================================================================
 	# process
