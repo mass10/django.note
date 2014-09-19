@@ -207,10 +207,12 @@ STATIC_URL = '/static/'
 #
 # DEFAULT_CHARSET
 
-
-LOCALE_PATHS = (
-	os.path.join(BASE_DIR, 'app1/locale/')
-)
+#
+# 試験中...
+#
+# LOCALE_PATHS = (
+# 	os.path.join(BASE_DIR, 'app1/locale/')
+# )
 
 #
 # 認証が済んでいないセッションによるアクセスに対して見せるページ
