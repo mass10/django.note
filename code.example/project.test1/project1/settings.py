@@ -36,6 +36,7 @@ INSTALLED_APPS = (
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 	'app1',
+	'debug_toolbar',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -46,7 +47,43 @@ MIDDLEWARE_CLASSES = (
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
 	'django.middleware.locale.LocaleMiddleware',
+
+	# 特にいらないっぽい...
+	# 'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
+
+
+#
+# 必要無いようだ... デフォルトが採用される？
+#
+# DEBUG_TOOLBAR_PANELS = (
+# 	'debug_toolbar.panels.versions.VersionsPanel',
+# 	'debug_toolbar.panels.timer.TimerPanel',
+# 	'debug_toolbar.panels.settings.SettingsPanel',
+# 	'debug_toolbar.panels.headers.HeadersPanel',
+# 	'debug_toolbar.panels.request.RequestPanel',
+# 	'debug_toolbar.panels.sql.SQLPanel',
+# 	'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+# 	'debug_toolbar.panels.templates.TemplatesPanel',
+# 	'debug_toolbar.panels.cache.CachePanel',
+# 	'debug_toolbar.panels.signals.SignalsPanel',
+# 	'debug_toolbar.panels.logging.LoggingPanel',
+# 	'debug_toolbar.panels.redirects.RedirectsPanel',
+# )
+
+def custom_show_toolbar(request):
+	return True
+
+DEBUG_TOOLBAR_CONFIG = {
+	'ENABLE_STACKTRACES' : True,
+	'SHOW_TOOLBAR_CALLBACK': 'project1.settings.custom_show_toolbar',
+}
+
+
+
+
+
+
 
 ROOT_URLCONF = 'project1.urls'
 
