@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+						<!-- images/default.html -->
+						<h2 class="section">保管庫</h2>
+						<div id="filebox" class="dropzone" style="background-color: #909080; width: 400px; height: 400px;"></div>
+						<script>
+						function _onload_document() {
+							jQuery("div#filebox").dropzone(
+								{
+									url: "/images/save",
+									headers: {
+										"X-CSRFToken": jQuery("input[name=csrfmiddlewaretoken]").val(),
+										"X-MyHeader": "My-Value",
+									}
+								}
+							);
+						}
+						</script>
+{% endblock %}
