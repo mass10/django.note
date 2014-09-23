@@ -6,6 +6,7 @@ import app1
 from app1.top.views import *
 from app1.gview01.views import *
 from app1.gview02.views import *
+from app1.images.views import *
 
 admin.autodiscover()
 
@@ -67,4 +68,9 @@ urlpatterns = patterns('',
 	url(r'^xusers/show$', 'app1.xusers.views.show', name='show'),
 	url(r'^xusers/add$', 'app1.xusers.views.add', name='add'),
 	url(r'^xusers/add_complete$', 'app1.xusers.views.add_complete', name=''),
+
+	# ファイル保管庫
+	url(r'^images/$', 'app1.images.views.default'),
+	url(r'^images/save$', 'app1.images.views.save'),
+	# url(r'^images/$', images.as_view()),
 )
