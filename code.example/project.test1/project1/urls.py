@@ -72,5 +72,6 @@ urlpatterns = patterns('',
 	# ファイル保管庫
 	url(r'^images/$', 'app1.images.views.default'),
 	url(r'^images/save$', 'app1.images.views.save'),
+	url(r'^images/thumbnails$', 'app1.images.views.thumbnails'),
 	# url(r'^images/$', images.as_view()),
 )
