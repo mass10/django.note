@@ -5,6 +5,8 @@ import logging
 import subprocess
 import time
 import inspect
+import uuid
+import os
 from app1.utils import *
 from app1.views import *
 from django.contrib.auth.decorators import login_required
@@ -67,19 +69,13 @@ def default(request):
 
 def _save(f):
 
-	return
-	
-	#
-	# ファイルをデータベースに保管するように処理する
-	#
-	import uuid
 	guid = uuid.uuid1()
 	guid = str(guid)
-	pathname = '/tmp/' + guid + ".tmp"
-	stream = open(pathname, "wb")
-	for bytes in f.chunks():
-		size += stream.write(bytes)
-	stream.close()
+	pathname, ext = os.path.splitext(f.name)
+	pathname = os.path.join('/var/images', guid + ext)
+	with open(pathname, "wb") as stream:
+		for bytes in f.chunks():
+			stream.write(bytes)
 	return pathname
 
 @login_required
@@ -114,8 +110,8 @@ def save(request):
 	# =========================================================================
 
 	# ファイルの保存
-	for e in request.FILES:
-		_save(e)
+	file = request.FILES['file']
+	_save(file)
 
 	# =========================================================================
 	# contents
@@ -127,4 +123,67 @@ def save(request):
 	# コンテンツ返却
 	context = django.template.RequestContext(request, fields)
 	template = django.template.loader.get_template('images/default.html')
+	return django.http.HttpResponse(template.render(context))
+
+def _enum_files(path):
+
+	paths = []
+	if os.path.isdir(path):
+		for x in os.listdir(path):
+			paths.append(os.path.join(path, x))
+	return paths
+
+@login_required
+def thumbnails(request):
+
+	# *************************************************************************
+	# *************************************************************************
+	# *************************************************************************
+	#
+	#
+	# 保管庫のビュー
+	#
+	#
+	# *************************************************************************
+	# *************************************************************************
+	# *************************************************************************
+
+	# =========================================================================
+	# setup	
+	# =========================================================================	
+
+	# =========================================================================
+	# validation	
+	# =========================================================================
+	# if request.method == 'POST':
+	# 	pass
+	# else:
+	# 	return django.http.HttpResponseRedirect('/images/')
+
+	# =========================================================================
+	# process
+	# =========================================================================
+
+	# ファイルの保存
+	# file = request.FILES['file']
+	# _save(file)
+
+	names = []
+	for e in _enum_files('/var/images'):
+		logger.debug(e)
+		names.append(e)
+
+	# =========================================================================
+	# contents
+	# =========================================================================
+	fields = {
+		'form': {
+			'images': names
+		}
+	}
+	# メニュー処理
+	# util.fill_menu_items(request, fields)
+	# コンテンツ返却
+	context = django.template.RequestContext(request, fields)
+	template = django.template.loader.get_template('images/thumbnails.html')
 	return django.http.HttpResponse(template.render(context))

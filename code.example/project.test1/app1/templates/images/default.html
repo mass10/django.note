@@ -2,8 +2,35 @@
 {% block content %}
 						<!-- images/default.html -->
 						<h2 class="section">保管庫</h2>
-						<div id="filebox" class="dropzone" style="background-color: #909080; width: 400px; height: 400px;"></div>
+						<div id="filebox" class="dropzone" style=""></div>
+						<hr>
+						<div id="thumbnails" style="width: 600px; height: 400px; overflow: scroll; ">
+						</div>
 						<script>
+						var my_loader = null;
+						function _setup_auto_loader() {
+							if(my_loader != null)
+								alert("二度読み！");
+							my_loader = new Ajax.PeriodicalUpdater(
+								"thumbnails",
+								"/images/thumbnails",
+								{
+									method: "get",
+									parameters: "",
+									frequency: 1,
+									onSuccess: function(request) {
+									},
+									onComplete: function(request) {
+									},
+									onFailure: function(request) {
+										alert('onFailure');
+									},
+									onException: function (request, e) {
+										alert('onException');
+									}
+								}
+							);
+						}
 						function _onload_document() {
 							jQuery("div#filebox").dropzone(
 								{
@@ -14,6 +41,7 @@
 									}
 								}
 							);
+							_setup_auto_loader();
 						}
 						</script>
 {% endblock %}
