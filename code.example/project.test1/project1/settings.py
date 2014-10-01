@@ -39,6 +39,10 @@ INSTALLED_APPS = (
 	'debug_toolbar',
 )
 
+AUTHENTICATION_BACKENDS = (
+	'project1.backends.EmailLoginModel',
+)
+
 MIDDLEWARE_CLASSES = (
 	'django.contrib.sessions.middleware.SessionMiddleware',
 	'django.middleware.common.CommonMiddleware',
@@ -134,9 +138,25 @@ LOGGING = {
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 DATABASES = {
-	'default': {
+
+	#
+	# SQLite3
+	#
+	'xxxxxxxxxxxxxxxxxx': {
 		'ENGINE': 'django.db.backends.sqlite3',
 		'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+	},
+
+	#
+	# MySQL
+	#
+	'default': {
+		'ENGINE': 'django.db.backends.mysql',
+		'NAME': 'project1db',
+		'USER': 'root',
+		# 'PASSWORD': '',
+		# 'HOST': '',
+		# 'PORT': '',		
 	}
 }
 

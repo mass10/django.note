@@ -15,3 +15,21 @@ WSGIPythonPath /path/to/project.test1
 
 Alias /static/ /path/to/project.test1/app1/static/
 ```
+
+
+##mysql
+
+```
+# mysql
+sql> create database project1db character set utf8 collate utf8_bin;
+```
+
+
+
+
+
+
+
+
+
+

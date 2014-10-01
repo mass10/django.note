@@ -128,10 +128,16 @@ def _try_login(request):
 	# 	logger.debug(u'ユーザー [' + util.to_string(user_name) + u'] によるログイン失敗。session_key=[' + util.to_string(request.session.session_key) + ']')
 	# 	return False
 
+	# user_name = 'unknown@example.com'
+
 	# =========================================================================
 	# ログイン処理
 	# =========================================================================
-	user = django.contrib.auth.authenticate(username=user_name, password=password)
+	user = django.contrib.auth.authenticate(
+		# username=user_name, password=password
+		# メールアドレスでログインする方法を検証中...
+		email=user_name, password=password
+	)
 	if user is None:
 		logger.info(u'ユーザー [' + util.to_string(user_name) + u'] によるログイン失敗。理由=[アカウント情報不正]')
 		return False

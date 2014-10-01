@@ -13,10 +13,10 @@
 						}
 						</style>
 						<div id="content">
-							<div id="floating_panel" onclick="javascript: _update(this);">コンテンツ1</div>
-							<div id="floating_panel" onclick="javascript: _update(this);">コンテンツ2</div>
-							<div id="floating_panel" onclick="javascript: _update(this);">コンテンツ3</div>
-							<div id="floating_panel" onclick="javascript: _update(this);">コンテンツ4</div>
+							<div id="floating_panel1" onclick="javascript: _update(this);">コンテンツ1</div>
+							<div id="floating_panel2" onclick="javascript: _update(this);">コンテンツ2</div>
+							<div id="floating_panel3" onclick="javascript: _update(this);">コンテンツ3</div>
+							<div id="floating_panel4" onclick="javascript: _update(this);">コンテンツ4</div>
 						</div>
 						<script>
 						function _update(panel) {
@@ -25,7 +25,7 @@
 								var json_struct = JSON.parse(r.responseText);
 								panel.innerHTML = json_struct.time;
 							});
-							r.open("GET", "/floatings/time");
+							r.open("GET", "/floatings/time?panel=" + panel.id);
 							r.send();
 						}
 						</script>
