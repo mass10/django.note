@@ -1,16 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
 						<!-- images/default.html -->
-						<h2 class="section">保管庫</h2>
-						<div id="filebox" class="dropzone" style=""></div>
+						<div class="section">保管庫</div>
+						<div id="filebox" class="dropzone" name="file" style=""></div>
 						<hr>
-						<div id="thumbnails" style="width: 600px; height: 400px; overflow: scroll; ">
+						<div id="thumbnails" stylexxx="width: 600px; height: 400px; overflow: scroll; ">
 						</div>
+
 						<script>
+
+						function _setup_dropzone() {
+							jQuery("div#filebox").dropzone(
+								{
+									url: "/images/save",
+									headers: {
+										"X-CSRFToken": jQuery("input[name=csrfmiddlewaretoken]").val(),
+										"X-MyHeader": "My-Value",
+									}
+								}
+							);
+						}
+
 						var my_loader = null;
+
 						function _setup_auto_loader() {
+
 							if(my_loader != null)
 								alert("二度読み！");
+
 							my_loader = new Ajax.PeriodicalUpdater(
 								"thumbnails",
 								"/images/thumbnails",
@@ -23,25 +40,21 @@
 									onComplete: function(request) {
 									},
 									onFailure: function(request) {
-										alert('onFailure');
+										// alert('onFailure');
 									},
 									onException: function (request, e) {
-										alert('onException');
+										// alert('onException');
 									}
 								}
 							);
 						}
+
 						function _onload_document() {
-							jQuery("div#filebox").dropzone(
-								{
-									url: "/images/save",
-									headers: {
-										"X-CSRFToken": jQuery("input[name=csrfmiddlewaretoken]").val(),
-										"X-MyHeader": "My-Value",
-									}
-								}
-							);
+							// dropzone の初期化
+							_setup_dropzone();
+							// ajax 初期化
 							_setup_auto_loader();
 						}
+
 						</script>
 {% endblock %}
