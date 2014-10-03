@@ -153,10 +153,10 @@ DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.mysql',
 		'NAME': 'project1db',
-		'USER': 'root',
-		# 'PASSWORD': '',
-		# 'HOST': '',
-		# 'PORT': '',		
+		'USER': 'maaas',
+		'PASSWORD': 'pass',
+		'HOST': '127.0.0.1',
+		'PORT': '3306',
 	}
 }
 
@@ -174,18 +174,20 @@ SESSION_COOKIE_NAME = 'sessionid'
 #
 # セッションの実装に何を選択するか
 #
-SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
-# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+# SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 #
 # in-memory session を利用するために追記した
 #    -> 消した
-# CACHES = {
-# 	'default' : {
-# 		'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-# 		'LOCATION': 'WE ARE THE WORLD'
-# 	}
-# }
+CACHES = {
+	'default' : {
+		# 'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+		# 'LOCATION': 'WE ARE THE WORLD'
+		'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+		'LOCATION': '192.168.40.153:11211'
+	}
+}
 
 #
 # JavaScript などによる Cookie へのアクセスを禁止する。ただし、実際にどのような挙動をするかはウェブブラウザの実装によるため、これは紳士協定と言える。
