@@ -75,4 +75,8 @@ urlpatterns = patterns('',
 	url(r'^images/thumbnails$', 'app1.images.views.thumbnails'),
 	url(r'^images/thumbnail$', 'app1.images.views.thumbnail'),
 	# url(r'^images/$', images.as_view()),
+
+	# ふせん部屋
+	url(r'^fusenroom/$', 'app1.fusenroom.views.default'),
+	url(r'^fusenroom/elements$', 'app1.fusenroom.views.elements'),
 )

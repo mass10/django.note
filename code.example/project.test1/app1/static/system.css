@@ -56,7 +56,7 @@ a:active {
 
 .banner {
 
-#	width: 800px;
+	/*width: 800px;*/
 
 	color: #707070;
 	color: #c0b0a0;
@@ -117,13 +117,13 @@ span.login_form_label {
 span.code {
 	font-family: "ＭＳ ゴシック";
 	white-space: pre;
-#	font-size: 12px;
+	/*font-size: 12px;*/
 }
 
 div.code {
 	font-family: "ＭＳ ゴシック";
 	white-space: pre;
-#	font-size: 12px;
+	/*font-size: 12px;*/
 }
 
 input.login_form_user_id {
@@ -164,3 +164,9 @@ img.powerd_by {
 	height: 52px;
 }
 
+#content_thumbnails div {
+	float: left;
+	width: 64px;
+	height: 64px;
+	margin: 0 8px 8px 0;
+}

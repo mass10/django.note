@@ -1,13 +1,5 @@
 <!-- images/thumbnails.html -->
-<style>
-#content div {
-	float: left;
-	width: 64px;
-	height: 64px;
-	margin: 0 8px 8px 0;
-}
-</style>
-<div id="content">
+<div id="content_thumbnails">
 {% for name in form.images %}
 	<div><img src="/images/thumbnail?{{ name }}" style="width: 64px; height: 64px;"/></div>
 {% endfor %}
