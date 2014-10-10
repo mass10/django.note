@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block content %}
+						<!-- floatings/default.html -->
+						<div class="section">ふせん部屋</div>
+						<style>
+						#content div {
+							float: left;
+							width: 200px;
+							height: 200px;
+							margin: 0 10px 10px 0;
+							background-color: #505050;
+							color: #ffffff;
+						}
+						</style>
+
+						<div id="contentx">
+							{% for e in form.fusen_elements %}
+							<div id="{{e.fusen_id}}" draggable="true" onclick="javascript: _update(this);" style="background-color: #a0a0b0; width: {{e.width}}px; position: relative; height: {{e.height}}px; left: {{e.left}}px; top: {{e.top}}px;">{{e.content}}</div>
+							{% endfor %}
+						</div>
+
+						<textarea name="xxx" style="width: 600px; height: 200px"></textarea>
+
+						<script>
+
+						function _on_drag_start(e) {
+							this.style.opacity = '0.4';  // this / e.target is the source node.
+						}
+
+						function _on_drag_over(e) {
+							if (e.preventDefault) {
+								e.preventDefault(); // Necessary. Allows us to drop.
+							}
+							e.dataTransfer.dropEffect = 'move';  // See the section on the DataTransfer object.
+							return false;
+						}
+
+						function _on_drag_enter(e) {
+							// this / e.target is the current hover target.
+							this.classList.add('over');
+						}
+
+						function _on_drag_leave(e) {
+							this.classList.remove('over');  // this / e.target is previous target element.
+						}
+
+						function _update(panel) {
+							var r = new XMLHttpRequest();
+							r.addEventListener("load", function(e) {
+								var json_struct = JSON.parse(r.responseText);
+								panel.innerHTML = json_struct.time;
+							});
+							r.open("GET", "/floatings/time?panel=" + panel.id);
+							r.send();
+						}
+
+						function _initialize_draggable_elements() {
+							var cols = document.querySelectorAll('#columns .column');
+							[].forEach.call(cols, function(col) {
+								col.addEventListener('dragstart', _on_drag_start, false);
+								// col.addEventListener('dragenter', _on_drag_enter, false);
+								col.addEventListener('dragover', _on_drag_over, false);
+								col.addEventListener('dragleave', _on_drag_leave, false);
+							});
+						}
+
+						var my_loader = null;
+
+						function _setup_auto_loader() {
+
+							if(my_loader != null) {
+								alert("二度読み！");
+								my_loader = null;
+							}
+
+							my_loader = new Ajax.PeriodicalUpdater(
+								"",
+								"/fusenroom/elements",
+								{
+									method: "get",
+									parameters: "",
+									frequency: 1,
+
+									onSuccess: function(request) {
+
+										var json_struct = JSON.parse(request.responseText);
+										var time = json_struct["time"];
+										var text = "";
+										var len = json_struct.fusen_elements.length;
+
+										for(var i = 0; i < len; i++) {
+
+											var element = json_struct.fusen_elements[i];
+
+											if(text != "")
+												text += ", ";
+
+											text += i;
+											text += ":";
+											text += "fusen_id=" + element.fusen_id;
+
+											var fusen = document.getElementById(element.fusen_id);
+											if(fusen == null) {
+												text += ", status=[not found!]";
+											}
+											else {
+												fusen.style.width = element.width + "px";
+												fusen.style.height = element.height + "px";
+												fusen.style.left = element.left + "px";
+												fusen.style.top = element.top + "px";
+												fusen.innerHTML = element.content;
+												text += ", status=[ok], object=[" + JSON.stringify(element) + "]";
+											}
+											text += "\n";
+										}
+										document.forms[0]["xxx"].value = text;
+									},
+									onComplete: function(request) {
+									},
+									onFailure: function(request) {
+										// alert('onFailure');
+									},
+									onException: function (request, e) {
+										// alert('onException');
+									}
+								}
+							);
+						}
+
+						function _onload_document() {
+							_initialize_draggable_elements();
+							_setup_auto_loader();
+						}
+
+						</script>
+{% endblock %}
