@@ -22,6 +22,7 @@ Alias /static/ /path/to/project.test1/app1/static/
 ```
 # mysql
 sql> create database project1db character set utf8 collate utf8_bin;
+sql> grant all on project1db.* to maaas@localhost identified by 'pass';
 ```
 
 
