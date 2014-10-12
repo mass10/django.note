@@ -18,10 +18,26 @@
 							<div id="{{e.fusen_id}}" draggable="true" onclick="javascript: _update(this);" style="background-color: #a0a0b0; width: {{e.width}}px; position: relative; height: {{e.height}}px; left: {{e.left}}px; top: {{e.top}}px;">{{e.content}}</div>
 							{% endfor %}
 						</div>
-
+						<a href="#" onclick="javascript: _create_new();">create new fusen</a><br>
 						<textarea name="xxx" style="width: 600px; height: 200px"></textarea>
 
 						<script>
+
+						function _create_new() {
+							var r = new XMLHttpRequest();
+							// r.addEventListener("load", function(e) {
+							// 	var json_struct = JSON.parse(r.responseText);
+							// 	panel.innerHTML = json_struct.time;
+							// });
+							//
+							// TODO:
+							// required POST!
+							// need header: {
+							// 	"X-CSRFToken": jQuery("input[name=csrfmiddlewaretoken]").val(),
+							// }
+							r.open("GET", "/fusenroom/new");
+							r.send();
+						}
 
 						function _on_drag_start(e) {
 							this.style.opacity = '0.4';  // this / e.target is the source node.

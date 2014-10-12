@@ -174,8 +174,8 @@ SESSION_COOKIE_NAME = 'sessionid'
 #
 # セッションの実装に何を選択するか
 #
-# SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
-SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 #
 # in-memory session を利用するために追記した
@@ -185,7 +185,7 @@ CACHES = {
 		# 'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
 		# 'LOCATION': 'WE ARE THE WORLD'
 		'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-		'LOCATION': '192.168.40.153:11211'
+		'LOCATION': '127.0.0.1:11211'
 	}
 }
 

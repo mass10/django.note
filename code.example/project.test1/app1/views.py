@@ -133,11 +133,13 @@ def _try_login(request):
 	# =========================================================================
 	# ログイン処理
 	# =========================================================================
-	user = django.contrib.auth.authenticate(
-		# username=user_name, password=password
-		# メールアドレスでログインする方法を検証中...
-		email=user_name, password=password
-	)
+
+	# 通常のログイン
+	# user = django.contrib.auth.authenticate(username=user_name, password=password)
+
+	# メールアドレスでログインする方法を検証中...
+	user = django.contrib.auth.authenticate(email=user_name, password=password)
+
 	if user is None:
 		logger.info(u'ユーザー [' + util.to_string(user_name) + u'] によるログイン失敗。理由=[アカウント情報不正]')
 		return False
@@ -206,13 +208,15 @@ def login(request):
 	# process
 	# =========================================================================
 
+
 	# =========================================================================
 	# contents
 	# =========================================================================
 	fields = {}
-	login_form = LoginForm(request.POST)
 	if request.method == 'POST':
 		fields['error_message'] = u'ログイン画面のテストです。MAIL ADDRESS にメールアドレスを入力してください。'
+	login_form = LoginForm(request.POST)
+	login_form.is_valid()
 	fields['form_data'] = login_form
 	fields['greeting_message_text'] = ugettext('Welcome to my site.')
 	context = django.template.RequestContext(request, fields)

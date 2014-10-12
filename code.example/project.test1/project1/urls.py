@@ -79,4 +79,5 @@ urlpatterns = patterns('',
 	# ふせん部屋
 	url(r'^fusenroom/$', 'app1.fusenroom.views.default'),
 	url(r'^fusenroom/elements$', 'app1.fusenroom.views.elements'),
+	url(r'^fusenroom/new$', 'app1.fusenroom.views.new'),
 )
