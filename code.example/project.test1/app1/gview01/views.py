@@ -19,5 +19,4 @@ class gview01(my_abstract_view):
 
 	@method_decorator(login_required)
 	def dispatch(self, request, *args, **kwargs):
-		print(gview01.dispatch)
 		return super(gview01, self).dispatch(request, *args, **kwargs)

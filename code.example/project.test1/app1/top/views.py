@@ -74,17 +74,14 @@ class top_views_content(my_abstract_view):
 	def get(self, request, *args, **kwargs):
 		if not request.user.is_authenticated():
 			return django.http.HttpResponse('{}')
-		print(top_views_content.get)
 		return super(top_views_content, self).get(request, *args, **kwargs)
 
 	def post(self, request, *args, **kwargs):
 		if not request.user.is_authenticated():
 			return django.http.HttpResponse('{}')
-		print(top_views_content.post)
 		return super(top_views_content, self).post(request, *args, **kwargs)
 
 	def get_context_data(self, **kwargs):
-		print(top_views_content.get_context_data)
 		fields = {}
 		result = Top().get()
 		fields['form'] = {

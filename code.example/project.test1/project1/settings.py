@@ -36,6 +36,8 @@ INSTALLED_APPS = (
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 	'app1',
+
+	# httpd 連携する時ははずすこと！
 	'debug_toolbar',
 )
 
@@ -174,8 +176,8 @@ SESSION_COOKIE_NAME = 'sessionid'
 #
 # セッションの実装に何を選択するか
 #
-SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
-# SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+# SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 #
 # in-memory session を利用するために追記した

@@ -268,13 +268,13 @@ class my_abstract_view(TemplateView):
 	template_name = 'must be overridden'
 
 	def dispatch(self, request, *args, **kwargs):
-		print(my_abstract_view.dispatch)
+		logger.debug(my_abstract_view.dispatch)
 		return super(my_abstract_view, self).dispatch(request, *args, **kwargs)
 
 	def get(self, request, *args, **kwargs):
-		print(my_abstract_view.get)
+		logger.debug(my_abstract_view.get)
 		return super(my_abstract_view, self).get(request, *args, **kwargs)
 
 	def post(self, request, *args, **kwargs):
-		print(my_abstract_view.get)
+		logger.debug(my_abstract_view.get)
 		return super(my_abstract_view, self).post(request, *args, **kwargs)
