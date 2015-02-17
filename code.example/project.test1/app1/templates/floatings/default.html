@@ -22,8 +22,8 @@
 						function _update(panel) {
 							var r = new XMLHttpRequest();
 							r.addEventListener("load", function(e) {
-								var json_struct = JSON.parse(r.responseText);
-								panel.innerHTML = json_struct.time;
+								var j = JSON.parse(r.responseText);
+								panel.innerHTML = j.time;
 							});
 							r.open("GET", "/floatings/time?panel=" + panel.id);
 							r.send();
