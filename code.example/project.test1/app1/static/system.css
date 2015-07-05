@@ -56,6 +56,12 @@ a:active {
 
 .banner {
 
+	font-size: 60px;
+	color: #808080;
+}
+
+.bannerxx {
+
 	/*width: 800px;*/
 
 	color: #707070;
@@ -84,6 +90,9 @@ a:active {
 }
 
 div.footer_border {
+}
+
+div.footer_borderx {
 
 	height: 4px;
 	/*color: #707070;*/
@@ -139,6 +148,9 @@ input.login_form_password {
 }
 
 #login_button_control {
+}
+
+#login_button_controlx {
 
 	font-size: 26px;
 	width: 320px;
