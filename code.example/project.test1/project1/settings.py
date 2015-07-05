@@ -38,7 +38,7 @@ INSTALLED_APPS = (
 	'app1',
 
 	# httpd 連携する時ははずすこと！
-	'debug_toolbar',
+	# 'debug_toolbar',
 )
 
 AUTHENTICATION_BACKENDS = (
