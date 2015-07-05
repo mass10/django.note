@@ -1,0 +1,14 @@
+<DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<form method="post">
+	<a href="/">Welcome!</a><br>
+	<input type="submit" value="Google アカウントで始める">
+	{{identity_text}}
+	{% csrf_token %}
+</form>
+</body>
+</html>
+
