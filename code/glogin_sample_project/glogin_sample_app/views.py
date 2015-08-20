@@ -31,11 +31,11 @@ def _update_user(user_id, id_token):
 
 	if user_id == None or user_id == '':
 		print 'パラメータのエラーです (user_id is "")'
-		raise
+		raise ''
 
 	if id_token == None or id_token == '':
 		print 'パラメータのエラーです (id_token is "")'
-		raise
+		raise ''
 
 
 	# =========================================================================
@@ -208,7 +208,7 @@ def glogin(request):
 
 	except:
 
-		raise
+		raise ''
 
 	# =========================================================================
 	# finalization
@@ -224,10 +224,7 @@ def _try_to_get_email(id_token):
 
 	print '[debug] ユーザー情報を照会中... client_id=[{0}], id_token=[{1}]'.format(client_id, id_token)
 
-	if id_token == None:
-		print '[debug] パラメータのエラーです。'
-		return None
-	if id_token == '':
+	if id_token == None or id_token == '':
 		print '[debug] パラメータのエラーです。'
 		return None
 
