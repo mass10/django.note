@@ -3,29 +3,31 @@
 	<head>
 		<meta charset="utf-8"/>
 		<title></title>
-		<style>
-			.btn {
-				background: #EEE;
-				border: 1px solid #DDD;
-				border-radius: 4px;
-				-moz-border-radius: 4px;
-				-webkit-border-radius: 4px;
-				color: #111;
-				width: 100px;
-				padding: 10px 0;
-			}
-		</style>
+		<link rel="stylesheet" type="style/css" href="/static/css/base.css">
+		<script type="text/javascript" src="/static/js/jquery-2.1.4.min.js"></script>
+		<script>
+		function _go_submit() {
+			$('#default_form').submit();
+		}
+		function _on_load_document() {
+			$('#submit_signup').click(_go_submit);
+		}
+		$(document).ready(_on_load_document);
+		</script>
 	</head>
-	<body style="background-image: url('/static/images/undefined.jpg'); ">
-		<form method="post">
-			<a href="/" style="font-size: 90px; text-decoration: none; color: #a0a0a0">Welcome! This is Dummy Application.</a><br>
+	<body>
+		<form id="default_form" method="post">
+			<a href="/" style="font-size: 50px; text-decoration: none; color: #a0a0a0">Welcome! This is Dummy Application.</a><br>
+			<hr>
 			<span style="font-size: 30px; ">{{identity_text}}</span><br><br>
-			<input type="submit" value="Google アカウントで始める" style="height: 40px; width: 300px">
+			<br>
+			<a class="btn" id="submit_signup" href="#" style="text-decoration: none; weight: bold">&nbsp;&nbsp;&nbsp;Google アカウントでサインアップ&nbsp;&nbsp;&nbsp;</a>
+			<br>
 			{% csrf_token %}
 			<br>
 			<br>
 			<br>
-			<span style="font-size: 32px">Google 連携を解除するには</span><a href="https://security.google.com/settings/security/permissions" style="font-size: 32px" target="_blank">こちら</a></span></a>
+			<span style="font-size: 28px">Google 連携を解除するには</span><a href="https://security.google.com/settings/security/permissions" style="font-size: 28px" target="_blank">こちら</a></span></a>
 			<br>
 		</form>
 	</body>
